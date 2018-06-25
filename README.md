@@ -5,4 +5,4 @@
 
 example: 
 
-![example](https://i.imgur.com/iGBhJqR.png)
+![example](https://i.imgur.com/OPHyd5n.png)
