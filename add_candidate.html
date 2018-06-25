@@ -19,11 +19,12 @@
 
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg">
-		<a class="navbar-brand" href="index.html">WTlogo</a>
+		<a class="navbar-brand" href="index.html"> <img src="WTlogo.png" width="50" height="30" alt=""></a>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 
@@ -48,24 +49,26 @@
 				</li>
 
 			</ul>
-			<a class="navbar-brand" href="#">
-				<img src="alertbell.png" width="30" height="30" alt="">
-			</a>
+
+			<button type="button" class="btn btn-primary" id="notification_btn">
+				Notifications <span class="badge badge-light">4</span>
+			</button>
+
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" placeholder="Seach by name" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbtn">Search</button>
 			</form>
+
 		</div>
 	</nav>
 	<!--MAIN CONTENT -->
 	<div class="container-fluid" id="maincontent">
 
 		<div class="card">
-			<div class="card-header">
-				Add new candidate
-			</div>
-			<div class="card-body">
 
+			<div class="card-body">
+				<h3 class="card-title">Add new candidate</h3>
+				<hr>
 				<form>
 
 					<div class="form-group">
