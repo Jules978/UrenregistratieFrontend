@@ -18,8 +18,8 @@
 <body>
 
 	<!-- NAVBAR -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">WTlogo</a>
+	<nav class="navbar navbar-expand-lg">
+		<a class="navbar-brand" href="index.html">WTlogo</a>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -36,12 +36,6 @@
 					<a class="nav-link" href="#">Edit profile</a>
 				</li>
 
-				<li class="nav-item">
-					<a class="navbar-brand" href="#">
-						<img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
-					</a>
-				</li>
-
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add new..</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -56,12 +50,12 @@
 
 			</ul>
 			<a class="navbar-brand" href="#">
-				<img src="https://cdn2.iconfinder.com/data/icons/social-productivity-line-art-2/128/notification-512.png" width="30" height="30" alt="">
+				<img src="alertbell.png" width="30" height="30" alt="">
 			</a>
 
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" placeholder="Seach by name" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbtn">Search</button>
 			</form>
 
 		</div>
@@ -105,7 +99,7 @@
 
 				</form>
 
-				<div class="btn btn-primary">Add Company</div>
+				<div class="btn btn-primary" id="submitbtn">Add Company</div>
 			</div>
 		</div>
 	</div>

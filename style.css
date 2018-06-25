@@ -1,9 +1,67 @@
 body {
-    
+    background-color: #343a40;
+}
+
+.navbar{
+	background-color: black;
+	color: rgb(128, 195, 28);
+}
+
+.navbar-brand {
+color: rgb(128, 195, 28);
+}
+
+.navbar-brand:hover {
+color: rgb(128, 195, 28);
+text-decoration: underline;
+
+}
+
+.nav-link {
+	color: rgb(128, 195, 28);
+}
+
+.nav-link:hover {
+	color: rgb(128, 195, 28);
+	text-decoration: underline;
+}
+
+
+#searchbtn {
+	color: rgb(128, 195, 28);
+	border-color: rgb(128, 195, 28);
+}
+
+#searchbtn:hover {
+	background-color: rgb(128, 195, 28);
+	border-color: white;
+	color: white;
+}
+
+.form-control:focus {
+	box-shadow: 0 0 3pt 2pt rgb(128, 195, 28);
+
+	border-color: rgb(128, 195, 28);
+
+}
+select option:active{
+
+	background-color: rgb(128, 195, 28);
+}
+
+#submitbtn {
+	background-color: white;
+	color: rgb(128, 195, 28);
+	border-color:rgb(128, 195, 28); 
+}
+
+#submitbtn:hover {
+	background-color: rgb(128, 195, 28);
+	color: white;
+	border-color:rgb(128, 195, 28); 
 }
 
 #maincontent {
 	margin-top: 1rem;
-
-
 }
+
