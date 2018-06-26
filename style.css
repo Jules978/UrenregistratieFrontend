@@ -96,7 +96,10 @@ select option:active{
 .card-title {
 	margin: 0px;
 }
+.searchresultstitle {
+color:rgb(128, 195, 28);
 
+}
 #searchresultcard {
 	width: 30rem;
 	margin: 1rem;

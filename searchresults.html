@@ -48,6 +48,18 @@
 					</div>
 				</li>
 
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Show all</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="show_candidates.html">Candidates</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="show_companies.html">Companies</a>
+						<a class="dropdown-item" href="show_managers.html">Managers</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="show_employees.html">WorkingTalent Employees</a>
+					</div>
+				</li>
+
 			</ul>
 			<button type="button" class="btn btn-primary" id="notification_btn">
 				Notifications <span class="badge badge-light">4</span>
@@ -55,7 +67,7 @@
 
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" placeholder="Seach by name" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbtn">Search</button>
+				<a href="searchresults.html" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbtn">Search</a>
 			</form>
 
 		</div>
@@ -63,7 +75,12 @@
 
 	<!--MAIN CONTENT -->
 	<div class="container-fluid" id="maincontent">
-		
+
+		<div class="container-fluid" id="searchresultscandidates">
+			<div class="container-fluid" >
+			<h3 class="searchresultstitle"> Candidates </h3>
+			<hr class = "searchresultsdivider">
+		</div>
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
 				<div class="card" id="searchresultcard">
 					<div class="card-body">
@@ -83,11 +100,11 @@
 				<div class="card" id="searchresultcard">
 					<div class="card-body">
 						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Company</h5>
+						<h5 class="card-title">Candidate</h5>
 						<hr>
 						<p class="card-text">contact info</p>
 						<hr>
-						
+						<a href="#" class="btn btn-primary" id="checkhoursbtn">check hourregistration</a> <br> 
 						<div class="container-fluid" id="editbtncontainer">
 							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
 							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
@@ -98,17 +115,29 @@
 				<div class="card" id="searchresultcard">
 					<div class="card-body">
 						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">WorkingTalent Employee</h5>
+						<h5 class="card-title">Candidate</h5>
 						<hr>
 						<p class="card-text">contact info</p>
 						<hr>
-						
+						<a href="#" class="btn btn-primary" id="checkhoursbtn">check hourregistration</a> <br> 
 						<div class="container-fluid" id="editbtncontainer">
 							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
 							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
 						</div>
 					</div>
 				</div>
+
+			</div>
+		</div>
+
+		<div class="container-fluid" id="searchresultsmanagers">
+			
+			<div class="container-fluid" >
+			<h3 class="searchresultstitle"> managers </h3>
+			<hr class = "searchresultsdivider">
+		</div>
+
+			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
 
 				<div class="card" id="searchresultcard">
 					<div class="card-body">
@@ -128,41 +157,11 @@
 				<div class="card" id="searchresultcard">
 					<div class="card-body">
 						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Candidate</h5>
+						<h5 class="card-title">manager</h5>
 						<hr>
 						<p class="card-text">contact info</p>
 						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check hourregistration</a> <br> 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">WorkingTalent Employee</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Candidate</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check hourregistration</a> <br> 
+						<a href="#" class="btn btn-primary" id="checkhoursbtn">check managed candidates</a> <br> 
 						<div class="container-fluid" id="editbtncontainer">
 							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
 							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
@@ -186,8 +185,92 @@
 				</div>
 
 			</div>
+		</div>
+
+		<div class="container-fluid" id="searchresultsWTemployees">
 		
+			<div class="container-fluid" >
+			<h3 class="searchresultstitle"> WorkingTalent Employees </h3>
+			<hr class = "searchresultsdivider">
+		</div>
+
+			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
+
+				<div class="card" id="searchresultcard">
+					<div class="card-body">
+						<h3 class="card-title">NAME</h3>
+						<h5 class="card-title">WorkingTalent Employee</h5>
+						<hr>
+						<p class="card-text">contact info</p>
+						<hr>
+
+						<div class="container-fluid" id="editbtncontainer">
+							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
+							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
+						</div>
+					</div>
+				</div>
+				<div class="card" id="searchresultcard">
+					<div class="card-body">
+						<h3 class="card-title">NAME</h3>
+						<h5 class="card-title">WorkingTalent Employee</h5>
+						<hr>
+						<p class="card-text">contact info</p>
+						<hr>
+
+						<div class="container-fluid" id="editbtncontainer">
+							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
+							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid" id="searchresultscompanies">
+
+			<div class="container-fluid" >
+			<h3 class="searchresultstitle"> Companies </h3>
+			<hr class = "searchresultsdivider">
+		</div>
+			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
+
+				<div class="card" id="searchresultcard">
+					<div class="card-body">
+						<h3 class="card-title">NAME</h3>
+						<h5 class="card-title">Company</h5>
+						<hr>
+						<p class="card-text">contact info</p>
+						<hr>
+
+						<div class="container-fluid" id="editbtncontainer">
+							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
+							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="card" id="searchresultcard">
+					<div class="card-body">
+						<h3 class="card-title">NAME</h3>
+						<h5 class="card-title">Company</h5>
+						<hr>
+						<p class="card-text">contact info</p>
+						<hr>
+
+						<div class="container-fluid" id="editbtncontainer">
+							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
+							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
 	</div>
+
 
 </body>
 </html>
+

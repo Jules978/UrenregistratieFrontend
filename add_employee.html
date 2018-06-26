@@ -48,8 +48,19 @@
 					</div>
 				</li>
 
-			</ul>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Show all</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="show_candidates.html">Candidates</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="show_companies.html">Companies</a>
+						<a class="dropdown-item" href="show_managers.html">Managers</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="show_employees.html">WorkingTalent Employees</a>
+					</div>
+				</li>
 
+			</ul>
 			<button type="button" class="btn btn-primary" id="notification_btn">
 				Notifications <span class="badge badge-light">4</span>
 			</button>
@@ -96,12 +107,29 @@
 
 				</form>
 
-				<div class="btn btn-primary" id="submitbtn">Add employee</div>
+				<div class="btn btn-primary" id="submitbtn" onclick="add_employee(); return false;">Add employee</div>
 			</div>
 		</div>
 
 
 	</div>
+
+<script>
+
+	function add_employee(){
+		var first_name = document.getElementById("employee_first_name").value;
+		var last_name = document.getElementById("employee_last_name").value;
+		var email = document.getElementById("employee_email").value;
+		var telephone = document.getElementById("employee_phone").value;
+		var obj = {"firstName":first_name, "lastName":last_name, "email":email,"phone":telephone};
+
+		console.log(obj);
+		
+  		//var xhr = new XMLHttpRequest();
+  		//xhr.open("POST","submit.php", true); 
+  		//xhr.send(formData);  
+	}
+</script>
 
 </body>
 </html>

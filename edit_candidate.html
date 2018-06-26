@@ -73,80 +73,17 @@
 		</div>
 	</nav>
 	<!--MAIN CONTENT -->
-	<div class="container-fluid" id="maincontent">
+	<div class="container-fluid" id="maincontent" style="width:100%">
 
-		<div class="card">
-
-			<div class="card-body">
-				<h3 class="card-title">Add new candidate</h3>
-				<hr>
-				<form>
-
-					<div class="form-group">
-						<label for="candidate_first_name">First Name</label>
-						<input type="text" class="form-control" id="candidate_first_name">
-					</div>
-
-					<div class="form-group">
-						<label for="candidate_last_name">Last Name</label>
-						<input type="text" class="form-control" id="candidate_last_name">
-					</div>
-
-					<div class="form-group">
-						<label for="candidate_email">Email address</label>
-						<input type="email" class="form-control" id="candidate_email">
-					</div>
-
-					<div class="form-group">
-						<label for="candidate_phone">Telephone number</label>
-						<input type="text" class="form-control" id="candidate_phone">
-					</div>
-
-					<div class="form-group">
-						<label for="candidate_adress">Address</label>
-						<input type="text" class="form-control" id="candidate_adress">
-					</div>
-
-					<div class="form-group">
-						<label for="candidate_company">Select Company</label>
-						<select class="form-control" id="candidate_company">
-							<option>auto-fill with</option>
-							<option>available companies</option>
-							<option>and managers?</option>
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label for="candidate_salary">Salary</label>
-						<input type="number" step="0.01" min="0" class="form-control" id="candidate_salary">
-					</div>
-
-				</form>
-
-				<div class="btn btn-primary" id="submitbtn" onclick="add_candidate(); return false;">Add candidate</div>
-			</div>
-		</div>
-
-	</div>
-<script>
-
-	function add_candidate(){
-		var first_name = document.getElementById("candidate_first_name").value;
-		var last_name = document.getElementById("candidate_last_name").value;
-		var email = document.getElementById("candidate_email").value;
-		var telephone = document.getElementById("candidate_phone").value;
-		var adress = document.getElementById("candidate_adress").value;
-		var company = document.getElementById("candidate_company").value;
-		var salary = document.getElementById("candidate_salary").value;
-		var obj = {"firstName":first_name, "lastName":last_name, "email":email,"phone":telephone, "address":adress, "company":company, "salary":salary};
-
-		console.log(obj);
+		<div class="row" style="width:100%;margin:0">
+			<div class="col-md-6" style="padding:0;">HELLO</div>
+<div class="col-md-6" style="padding:0;"> HI</div>
+</div>
+  <!-- Force next columns to break to new line -->
+  
+</div>
 		
-  		//var xhr = new XMLHttpRequest();
-  		//xhr.open("POST","submit.php", true); 
-  		//xhr.send(formData);  
-	}
-</script>
+	</div>
 
 </body>
 </html>
