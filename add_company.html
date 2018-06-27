@@ -5,7 +5,7 @@
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -28,7 +28,7 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 
-				<li class="nav-item active"> 
+				<li class="nav-item active">
 					<a class="nav-link" href="#">Login/Logout <span class="sr-only">(current)</span></a>
 				</li>
 
@@ -76,7 +76,7 @@
 	<!--MAIN CONTENT -->
 	<div class="container-fluid" id="maincontent">
 		<div class="card">
-			
+
 			<div class="card-body">
 
 				<h3 class="card-title">Add new client company</h3>
@@ -109,7 +109,7 @@
 						<input type="number" step="0.01" min="0" class="form-control" id="company_rate">
 					</div>
 
-					
+
 
 				</form>
 
@@ -121,18 +121,23 @@
 <script>
 
 	function add_company(){
-		var name = document.getElementById("company_name").value;
-		var email = document.getElementById("company_email").value;
-		var telephone = document.getElementById("company_phone").value;
-		var adress = document.getElementById("company_adress").value;
-		var rate = document.getElementById("company_rate").value;
-		var obj = {"name":name, "email":email, "phone":telephone, "address":adress, "rate":rate};
 
-		console.log(obj);
-		
+		var obj = {};
+
+		obj.name = document.getElementById("company_name").value;
+		obj.email = document.getElementById("company_email").value;
+		obj.phone = document.getElementById("company_phone").value;
+		obj.adress = document.getElementById("company_adress").value;
+		obj.rate = document.getElementById("company_rate").value;
+
+		var objJSON = JSON.stringify(obj);
+
+		console.log(objJSON);
+
+
   		//var xhr = new XMLHttpRequest();
-  		//xhr.open("POST","submit.php", true); 
-  		//xhr.send(formData);  
+  		//xhr.open("POST","submit.php", true);
+  		//xhr.send(objJSON);
 	}
 </script>
 

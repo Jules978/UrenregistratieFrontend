@@ -131,20 +131,25 @@
 <script>
 
 	function add_candidate(){
-		var first_name = document.getElementById("candidate_first_name").value;
-		var last_name = document.getElementById("candidate_last_name").value;
-		var email = document.getElementById("candidate_email").value;
-		var telephone = document.getElementById("candidate_phone").value;
-		var adress = document.getElementById("candidate_adress").value;
-		var company = document.getElementById("candidate_company").value;
-		var salary = document.getElementById("candidate_salary").value;
-		var obj = {"firstName":first_name, "lastName":last_name, "email":email,"phone":telephone, "address":adress, "company":company, "salary":salary};
 
-		console.log(obj);
+		var obj = {};
+		
+		obj.firstName = document.getElementById("employee_first_name").value;
+		obj.lastName = document.getElementById("employee_last_name").value;
+		obj.email = document.getElementById("employee_email").value;
+		obj.phone = document.getElementById("employee_phone").value;
+		obj.adress = document.getElementById("candidate_adress").value;
+		obj.company = document.getElementById("candidate_company").value;
+		obj.salary = document.getElementById("candidate_salary").value;
+
+		var objJSON = JSON.stringify(obj);
+
+		console.log(objJSON);
+
 
   		//var xhr = new XMLHttpRequest();
   		//xhr.open("POST","submit.php", true);
-  		//xhr.send(formData);
+  		//xhr.send(objJSON);
 	}
 </script>
 
