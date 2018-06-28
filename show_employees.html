@@ -79,9 +79,9 @@
 		<div class="container-fluid" id="searchresultsWTemployees">
 
 			<div class="container-fluid" >
-			<h3 class="searchresultstitle"> WorkingTalent Employees </h3>
-			<hr class = "searchresultsdivider">
-		</div>
+				<h3 class="searchresultstitle"> WorkingTalent Employees </h3>
+				<hr class = "searchresultsdivider">
+			</div>
 
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
 
@@ -92,69 +92,69 @@
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
-<main></main>
+	<main></main>
 
-<script>
+	<script>
 
-var xhr = new XMLHttpRequest();
+	var xhr = new XMLHttpRequest();
 
-function getEmployees(){
-	var url = "http://localhost:8082/api/user/employee_wt";
-	  xhr.open('GET', url, false);
-	  xhr.send();
+	function getEmployees(){
+		var url = "http://localhost:8082/api/user/employee_wt";
+		xhr.open('GET', url, false);
+		xhr.send();
 
-	  var employeeArray = JSON.parse(xhr.response);
+		var employeeArray = JSON.parse(xhr.response);
 		console.log(employeeArray);
 
 		for (var employee in employeeArray) {
-      if (employeeArray.hasOwnProperty(employee)) {
+			if (employeeArray.hasOwnProperty(employee)) {
 
-    var firstName = employeeArray[employee].firstName;
-    var lastName = employeeArray[employee].lastName;
-		var fullName = firstName + " " + lastName;
-		 var employeeFullName = document.createTextNode(fullName);
-    var emailAdress= document.createTextNode("emailadress: " + employeeArray[employee].emailAdress );
-	var telephoneNumber= document.createTextNode("phonenumber: " + employeeArray[employee].telephoneNumber);
-	var dateOfBirth= document.createTextNode("date of birth: " + employeeArray[employee].dateOfBirth);
-	var br = document.createElement("hr");
-  //
-		//create elements for full post, title, and content.
-	var employeeCard = document.createElement("div");
-         employeeCard.id = "searchresultcard";
- 			 	employeeCard.className = 'card';
+				var firstName = employeeArray[employee].firstName;
+				var lastName = employeeArray[employee].lastName;
+				var fullName = firstName + " " + lastName;
+				var employeeFullName = document.createTextNode(fullName);
+				var emailAdress= document.createTextNode("emailadress: " + employeeArray[employee].emailAdress );
+				var telephoneNumber= document.createTextNode("phonenumber: " + employeeArray[employee].telephoneNumber);
+				var dateOfBirth= document.createTextNode("date of birth: " + employeeArray[employee].dateOfBirth);
+				var br = document.createElement("hr");
+				//
+				//create elements for full post, title, and content.
+				var employeeCard = document.createElement("div");
+				employeeCard.id = "searchresultcard";
+				employeeCard.className = 'card';
 
 				var employeeCard_body = document.createElement("div");
 
-							employeeCard_body.className = 'card-body';
+				employeeCard_body.className = 'card-body';
 
- var employeeCard_title = document.createElement("h3");
-   	employeeCard_title.className = 'card-title';
+				var employeeCard_title = document.createElement("h3");
+				employeeCard_title.className = 'card-title';
 
-  var employeeCard_content = document.createElement("div")
-	employeeCard_content.className = 'card_text';
+				var employeeCard_content = document.createElement("div")
+				employeeCard_content.className = 'card_text';
 
-     //adds text to corresponding elements
-		 employeeCard.appendChild(employeeCard_body);
-		 employeeCard_body.appendChild(employeeCard_title);
-		 employeeCard_content.appendChild(document.createElement("hr"));
-		 employeeCard_body.appendChild(employeeCard_content);
-  employeeCard_title.appendChild(employeeFullName);
-   employeeCard_content.appendChild(emailAdress);
-	 employeeCard_content.appendChild(document.createElement("br"));
-	 employeeCard_content.appendChild(telephoneNumber);
-	  employeeCard_content.appendChild(document.createElement("br"));
-	 employeeCard_content.appendChild(dateOfBirth);
+				//adds text to corresponding elements
+				employeeCard.appendChild(employeeCard_body);
+				employeeCard_body.appendChild(employeeCard_title);
+				employeeCard_content.appendChild(document.createElement("hr"));
+				employeeCard_body.appendChild(employeeCard_content);
+				employeeCard_title.appendChild(employeeFullName);
+				employeeCard_content.appendChild(emailAdress);
+				employeeCard_content.appendChild(document.createElement("br"));
+				employeeCard_content.appendChild(telephoneNumber);
+				employeeCard_content.appendChild(document.createElement("br"));
+				employeeCard_content.appendChild(dateOfBirth);
 
-	  document.getElementById("searchresultcolumn").appendChild(employeeCard);
-
-
-  
-    }
-   }
+				document.getElementById("searchresultcolumn").appendChild(employeeCard);
 
 
 
-}
+			}
+		}
+
+
+
+	}
 
 </script>
 
