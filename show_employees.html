@@ -67,7 +67,7 @@
 
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search" placeholder="Seach by name" aria-label="Search">
-				<a href="searchresults.html" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbtn">Search</a>
+				<button href="searchresults.html" class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbtn">Search</button>
 			</form>
 
 		</div>
@@ -99,52 +99,55 @@
 var xhr = new XMLHttpRequest();
 
 function getEmployees(){
-	var url = "/user/employee_wt";
+	var url = "http://localhost:8082/api/user/employee_wt";
 	  xhr.open('GET', url, false);
 	  xhr.send();
 
 	  var employeeArray = JSON.parse(xhr.response);
 		console.log(employeeArray);
 
-	// 	for (var employee in employeeArray) {
-  //     if (blogs_array.hasOwnProperty(post)) {
+		for (var employee in employeeArray) {
+      if (employeeArray.hasOwnProperty(employee)) {
+
+    var firstName = employeeArray[employee].firstName;
+    var lastName = employeeArray[employee].lastName;
+		var fullName = firstName + " " + lastName;
+		 var employeeFullName = document.createTextNode(fullName);
+    var emailAdress= document.createTextNode("emailadress: " + employeeArray[employee].emailAdress );
+	var telephoneNumber= document.createTextNode("phonenumber: " + employeeArray[employee].telephoneNumber);
+	var dateOfBirth= document.createTextNode("date of birth: " + employeeArray[employee].dateOfBirth);
+	var br = document.createElement("hr");
   //
-  //       //create elements for full post, title, and content.
-  //       var firstName = employeeArray[employee].firstName;
-  //       var lastName = employeeArray[employee].lastName;
-  //       var emailAdress= employeeArray[employee].emailAdress;
-	// 			var telephoneNumber= employeeArray[employee].telephoneNumber;
-	// 			var dateOfBirth= employeeArray[employee].dateOfBirth;
-  //
-  //
-  //       //create elements for full post, title, and content.
-  //       var blogcard = document.createElement("div");
-  //           blogcard.id = blogs_array[post].a_id;
-  //           blogcard.className = 'card_blog';
-  //
-  //       var blogcard_title = document.createElement("div")
-  //           blogcard_title.className = 'card_title';
-  //
-  //       var blogcard_title_content = document.createElement("div")
-  //           blogcard_title_content.className= "blog_title_line";
-  //
-  //       var blogcard_category_content = document.createElement("div")
-  //           blogcard_category_content.className= "blog_category_line";
-  //
-  //       var blogcard_content = document.createElement("div")
-  //           blogcard_content.className = 'card_content';
-  //
-  //       //creates textnode with title, catagory, and text
-  //       var blog_text = blogs_array[post].text;
-  //       var blog_title = document.createTextNode(blogs_array[post].title);
-  //       var blog_category = document.createTextNode(blog_date_category);
-  //
-  //       //adds text to corresponding elements
-  //       blogcard_title_content.appendChild(blog_title);
-  //       blogcard_title.appendChild(blogcard_title_content);
-  //       blogcard_category_content.appendChild(blog_category);
-  //       blogcard_title.appendChild(blogcard_category_content);
-  //       blogcard_content.innerHTML = blog_text;
+		//create elements for full post, title, and content.
+	var employeeCard = document.createElement("div");
+         employeeCard.id = "searchresultcard";
+ 			 	employeeCard.className = 'card';
+
+				var employeeCard_body = document.createElement("div");
+
+							employeeCard_body.className = 'card-body';
+
+ var employeeCard_title = document.createElement("h3");
+   	employeeCard_title.className = 'card-title';
+
+  var employeeCard_content = document.createElement("div")
+	employeeCard_content.className = 'card_text';
+
+     //adds text to corresponding elements
+		 employeeCard.appendChild(employeeCard_body);
+		 employeeCard_body.appendChild(employeeCard_title);
+		 employeeCard_content.appendChild(document.createElement("hr"));
+		 employeeCard_body.appendChild(employeeCard_content);
+  employeeCard_title.appendChild(employeeFullName);
+   employeeCard_content.appendChild(emailAdress);
+	 employeeCard_content.appendChild(document.createElement("br"));
+	 employeeCard_content.appendChild(telephoneNumber);
+	  employeeCard_content.appendChild(document.createElement("br"));
+	 employeeCard_content.appendChild(dateOfBirth);
+
+	  document.getElementById("searchresultcolumn").appendChild(employeeCard);
+
+
   //
   //       //add elements to main blog div
   //       blogcard.appendChild(blogcard_title);
@@ -203,9 +206,9 @@ function getEmployees(){
   //             commentsection.appendChild(removecommentsection);
   //             blogcard.appendChild(commentsection);
   //       }
-  //     }
-  // }
-};
+    }
+   }
+
 
 
 }
