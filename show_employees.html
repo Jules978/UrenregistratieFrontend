@@ -5,7 +5,7 @@
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
 	<script src="script.js"></script>
 
 </head>
-<body>
+<body onload="getEmployees();">
 
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg">
@@ -28,7 +28,7 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 
-				<li class="nav-item active"> 
+				<li class="nav-item active">
 					<a class="nav-link" href="#">Login/Logout <span class="sr-only">(current)</span></a>
 				</li>
 
@@ -77,48 +77,140 @@
 	<div class="container-fluid" id="maincontent">
 
 		<div class="container-fluid" id="searchresultsWTemployees">
-		
+
 			<div class="container-fluid" >
 			<h3 class="searchresultstitle"> WorkingTalent Employees </h3>
 			<hr class = "searchresultsdivider">
 		</div>
 
-			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
+			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
 
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">WorkingTalent Employee</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">WorkingTalent Employee</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+<main></main>
+
+<script>
+
+var xhr = new XMLHttpRequest();
+
+function getEmployees(){
+	var url = "/user/employee_wt";
+	  xhr.open('GET', url, false);
+	  xhr.send();
+
+	  var employeeArray = JSON.parse(xhr.response);
+		console.log(employeeArray);
+
+	// 	for (var employee in employeeArray) {
+  //     if (blogs_array.hasOwnProperty(post)) {
+  //
+  //       //create elements for full post, title, and content.
+  //       var firstName = employeeArray[employee].firstName;
+  //       var lastName = employeeArray[employee].lastName;
+  //       var emailAdress= employeeArray[employee].emailAdress;
+	// 			var telephoneNumber= employeeArray[employee].telephoneNumber;
+	// 			var dateOfBirth= employeeArray[employee].dateOfBirth;
+  //
+  //
+  //       //create elements for full post, title, and content.
+  //       var blogcard = document.createElement("div");
+  //           blogcard.id = blogs_array[post].a_id;
+  //           blogcard.className = 'card_blog';
+  //
+  //       var blogcard_title = document.createElement("div")
+  //           blogcard_title.className = 'card_title';
+  //
+  //       var blogcard_title_content = document.createElement("div")
+  //           blogcard_title_content.className= "blog_title_line";
+  //
+  //       var blogcard_category_content = document.createElement("div")
+  //           blogcard_category_content.className= "blog_category_line";
+  //
+  //       var blogcard_content = document.createElement("div")
+  //           blogcard_content.className = 'card_content';
+  //
+  //       //creates textnode with title, catagory, and text
+  //       var blog_text = blogs_array[post].text;
+  //       var blog_title = document.createTextNode(blogs_array[post].title);
+  //       var blog_category = document.createTextNode(blog_date_category);
+  //
+  //       //adds text to corresponding elements
+  //       blogcard_title_content.appendChild(blog_title);
+  //       blogcard_title.appendChild(blogcard_title_content);
+  //       blogcard_category_content.appendChild(blog_category);
+  //       blogcard_title.appendChild(blogcard_category_content);
+  //       blogcard_content.innerHTML = blog_text;
+  //
+  //       //add elements to main blog div
+  //       blogcard.appendChild(blogcard_title);
+  //       blogcard.appendChild(blogcard_content);
+  //       document.getElementById("blog_row").appendChild(blogcard);
+  //
+  //       //create commentsection (with article id) if allowed
+  //       if(blogs_array[post].disable_comments == "false"){
+  //
+  //         var commentfield_id= "comments"+blogs_array[post].a_id;
+  //         var comment_section_id= "commentsection"+blogs_array[post].a_id;
+  //         var comment_input_id= "commentinput"+blogs_array[post].a_id;
+  //
+  //         var commentsection = document.createElement("div");
+  //             commentsection.className = "commentsection";
+  //             commentsection.id= "commentsection_"+ blogcard.id;
+  //
+  //
+  //         var comments = document.createElement("div");
+  //             comments.id = commentfield_id;
+  //         var commentlist=document.createElement("ul");
+  //             commentlist.id = "commentlist_"+blogs_array[post].a_id;
+  //             commentlist.className = "commentlist";
+  //
+  //         //create comment form and see/send options
+  //         var commentinput = document.createElement("div");
+  //
+  //         var commenttext = document.createElement("input");
+  //             commenttext.id = comment_input_id;
+  //             commenttext.className = "comment_input";
+  //             commenttext.setAttribute('type', 'text');
+  //             commenttext.placeholder='Your comment';
+  //         var commentsubmit = document.createElement("div");
+  //             commentsubmit.id =  blogcard.id;
+  //             commentsubmit.innerHTML="send comment";
+  //             commentsubmit.className =  "send_comment";
+  //             commentsubmit.onclick =  function() { submitcomment(this.id) };
+  //         var seecomments = document.createElement("div");
+  //             seecomments.id =  blogcard.id;
+  //             seecomments.className =  "see_comments";
+  //             seecomments.innerHTML="Show comments";
+  //             seecomments.onclick =  function() { getcomments(this.id) };
+  //         var removecommentsection = document.createElement("div");
+  //             removecommentsection.id = blogcard.id;
+  //             removecommentsection.className = "remove_commentsection";
+  //             removecommentsection.onclick =  function() { disablecomments(this.id) };
+  //             removecommentsection.innerHTML="Remove commentsection";
+  //
+  //             //add comment elements to  blogcard
+  //             commentsection.appendChild(seecomments);
+  //             commentinput.appendChild(commenttext);
+  //             commentinput.appendChild(commentsubmit);
+  //             comments.appendChild(commentlist);
+  //             commentsection.appendChild(comments);
+  //             commentsection.appendChild(commentinput);
+  //             commentsection.appendChild(removecommentsection);
+  //             blogcard.appendChild(commentsection);
+  //       }
+  //     }
+  // }
+};
+
+
+}
+
+</script>
 
 </body>
 </html>
-

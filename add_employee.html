@@ -164,9 +164,10 @@
 
 		console.log(objJSON);
 
-		//var xhr = new XMLHttpRequest();
-		//xhr.open("POST","submit.php", true);
-		//xhr.send(formData);
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST","localhost:8082/api/user/employee_wt", true);
+		xhr.setRequestHeader("Content-type","application/json");
+		xhr.send(objJSON);
 	}
 </script>
 
