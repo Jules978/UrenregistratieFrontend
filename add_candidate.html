@@ -183,7 +183,7 @@
 
 			manager.userID = document.getElementById("candidate_manager").value;		
 			obj.manager = manager;
-			
+
 			var date = new Date();
 			var tempDay = date.getDate();
 			var tempMonth = date.getMonth() + 1;
@@ -211,9 +211,9 @@
 			console.log(objJSON);
 
 
-  		//var xhr = new XMLHttpRequest();
-  		//xhr.open("POST","submit.php", true);
-  		//xhr.send(objJSON);
+  		var xhr = new XMLHttpRequest();
+  		xhr.open("POST","http://localhost:8082/api/user/candidate", true);
+  		xhr.send(objJSON);
   	}
 
   	function getCompanies(){
