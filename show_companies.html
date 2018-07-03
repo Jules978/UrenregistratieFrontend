@@ -83,37 +83,6 @@
 			<hr class = "searchresultsdivider">
 		</div>
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Company</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a>
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Company</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a>
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
 
@@ -180,6 +149,13 @@
 
 				companyCard_content.appendChild(document.createElement("br"));
 
+				var delete_btn = document.createElement("div");
+                delete_btn.id =  companyArray[company].userID;
+                delete_btn.className = "btn btn-primary";
+                delete_btn.innerHTML="delete";
+                delete_btn.onclick =  function() { deleteCompany(this.id) };
+
+                companyCard_content.appendChild(delete_btn);
 
 				document.getElementById("searchresultcolumn").appendChild(companyCard);
 
@@ -191,6 +167,22 @@
 
 
 	}
+
+		function deleteCompany(companyId){
+  var id=companyId;
+var url = "http://localhost:8082/api/company";
+ xhr.open("DELETE", url, true);
+ xhr.setRequestHeader("Content-type","application/json");
+xhr.onload = function () {
+	
+	if (xhr.readyState == 4 && xhr.status == "200") {
+	
+	} else {
+		
+	}
+}
+xhr.send(id);
+}
 
 </script>
 </body>

@@ -82,50 +82,7 @@
 			<hr class = "searchresultsdivider">
 		</div>
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Candidate</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check hourregistration</a> <br> 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Candidate</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check hourregistration</a> <br> 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Candidate</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check hourregistration</a> <br> 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
+				
 
 			</div>
 		</div>
@@ -138,7 +95,7 @@
 	var xhr = new XMLHttpRequest();
 
 	function getCandidates(){
-		var url = "http://localhost:8082/api/user/employee_wt";
+		var url = "http://localhost:8082/api/user/candidate";
 		xhr.open('GET', url, false);
 		xhr.send();
 
@@ -199,14 +156,38 @@
 				candidateCard_content.appendChild(document.createElement("br"));
 				candidateCard_content.appendChild(salary);				
 
+				
+				var delete_btn = document.createElement("div");
+                delete_btn.id =  candidateArray[candidate].userID;
+                delete_btn.className = "btn btn-primary";
+                delete_btn.innerHTML="delete";
+                delete_btn.onclick =  function() { deleteCandidate(this.id) };
+
+                managerCard_content.appendChild(delete_btn);
+
 				document.getElementById("searchresultcolumn").appendChild(candidateCard);
+
+
 			}
 		}
 
-
-
 	}
 
+	function deleteCandidate(userid){
+  var id=userid;
+var url = "http://localhost:8082/api/user/candidate";
+ xhr.open("DELETE", url, true);
+ xhr.setRequestHeader("Content-type","application/json");
+xhr.onload = function () {
+	
+	if (xhr.readyState == 4 && xhr.status == "200") {
+		
+	} else {
+		
+	}
+}
+xhr.send(id);
+}
 </script>
 
 </body>

@@ -167,14 +167,15 @@
 
 	function deleteEmployee(userid){
   var id=userid;
-var url = "http://localhost:8082/api/users/employee_wt";
+var url = "http://localhost:8082/api/user/employee_wt";
  xhr.open("DELETE", url, true);
+ xhr.setRequestHeader("Content-type","application/json");
 xhr.onload = function () {
-	var users = JSON.parse(xhr.responseText);
+	
 	if (xhr.readyState == 4 && xhr.status == "200") {
-		console.table(users);
+	
 	} else {
-		console.error(users);
+		
 	}
 }
 xhr.send(id);

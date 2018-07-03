@@ -86,58 +86,99 @@
 		</div>
 
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">manager</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check managed candidates</a> <br> 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">manager</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check managed candidates</a> <br> 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">manager</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-						<a href="#" class="btn btn-primary" id="checkhoursbtn">check managed candidates</a> <br> 
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
 
 	</div>
 
+<script>
 
+	var xhr = new XMLHttpRequest();
+
+	function getEmployees(){
+		var url = "http://localhost:8082/api/user/manager_external";
+		xhr.open('GET', url, false);
+		xhr.send();
+
+		var managerArray = JSON.parse(xhr.response);
+		console.log(managerArray);
+
+		for (var manager in managerArray) {
+			if (managerArray.hasOwnProperty(manager)) {
+
+				var firstName = managerArray[manager].firstName;
+				var lastName = managerArray[manager].lastName;
+				var fullName = firstName + " " + lastName;
+				var managerFullName = document.createTextNode(fullName);
+				var emailAdress= document.createTextNode("emailadress: " + managerArray[manager].emailAdress );
+				var telephoneNumber= document.createTextNode("phonenumber: " + managerArray[manager].telephoneNumber);
+				var company = document.createTextNode("Company: " + managerArray[manager].company.companyName);
+				var br = document.createElement("hr");
+				//
+				//create elements for full post, title, and content.
+				var managerCard = document.createElement("div");
+				managerCard.id = "searchresultcard";
+				managerCard.className = 'card';
+
+				var managerCard_body = document.createElement("div");
+
+				managerCard_body.className = 'card-body';
+
+				var managerCard_title = document.createElement("h3");
+				managerCard_title.className = 'card-title';
+
+				var managerCard_content = document.createElement("div")
+				managerCard_content.className = 'card_text';
+
+				//adds text to corresponding elements
+				managerCard.appendChild(managerCard_body);
+				managerCard_body.appendChild(managerCard_title);
+				managerCard_content.appendChild(document.createElement("hr"));
+				managerCard_body.appendChild(managerCard_content);
+				managerCard_title.appendChild(managerFullName);
+				managerCard_content.appendChild(company);
+				managerCard_content.appendChild(document.createElement("br"));
+				managerCard_content.appendChild(emailAdress);
+				managerCard_content.appendChild(telephoneNumber);
+				managerCard_content.appendChild(document.createElement("br"));
+				
+
+				var delete_btn = document.createElement("div");
+                delete_btn.id =  managerArray[manager].userID;
+                delete_btn.className = "btn btn-primary";
+                delete_btn.innerHTML="delete";
+                delete_btn.onclick =  function() { deleteManager(this.id) };
+
+                managerCard_content.appendChild(delete_btn);
+
+				document.getElementById("searchresultcolumn").appendChild(managerCard);
+
+
+
+			}
+		}
+
+
+
+	}
+
+	function deleteManager(userid){
+  var id=userid;
+var url = "http://localhost:8082/api/user/manager_external";
+ xhr.open("DELETE", url, true);
+ xhr.setRequestHeader("Content-type","application/json");
+xhr.onload = function () {
+	
+	if (xhr.readyState == 4 && xhr.status == "200") {
+		
+	} else {
+		
+	}
+}
+xhr.send(id);
+}
+
+</script>
 </body>
 </html>
 
