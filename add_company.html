@@ -155,6 +155,7 @@
 
   		var xhr = new XMLHttpRequest();
   		xhr.open("POST","http://localhost:8082/api/company", true);
+  		xhr.setRequestHeader("Content-type","application/json");
   		xhr.send(objJSON);
 	}
 </script>
