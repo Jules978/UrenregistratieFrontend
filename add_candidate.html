@@ -164,7 +164,7 @@
 
 			var obj = {};
 			var company = {};
-			var manager = {};
+			var managerExternal = {};
 
 			obj.firstName = document.getElementById("candidate_first_name").value;
 			obj.lastName = document.getElementById("candidate_last_name").value;
@@ -180,8 +180,8 @@
 			company.companyID = document.getElementById("candidate_company").value;
 			obj.company = company;
 
-			manager.userID = document.getElementById("candidate_manager").value;
-			obj.manager = manager;
+			managerExternal.userID = document.getElementById("candidate_manager").value;
+			obj.managerExternal = managerExternal;
 
 			var date = new Date();
 			var tempDay = date.getDate();
