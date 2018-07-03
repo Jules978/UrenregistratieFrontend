@@ -15,7 +15,7 @@
 	<script src="script.js"></script>
 
 </head>
-<body onload="getCompanies();">
+<body onload="getCompanies(); getManagers();">
 
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg">
@@ -142,9 +142,7 @@
 					<div class="form-group">
 						<label for="candidate_manager">Select Manager</label>
 						<select class="form-control" id="candidate_manager">
-							<option value="1">auto-fill with</option>
-							<option>available companies</option>
-							<option>and managers?</option>
+							
 						</select>
 					</div>
 
@@ -242,6 +240,32 @@
 	            company_option.appendChild(company_text);
 	        var company_select = document.getElementById("candidate_company");
             company_select.appendChild(company_option);
+
+  			}
+  		}
+
+
+  	}
+
+  	 	function getmanagers(){
+
+  		var url = "http://localhost:8082/api/user/manager_external";
+  		xhr.open('GET', url, false);
+  		xhr.send();
+
+  		var managerArray = JSON.parse(xhr.response);
+  		console.log(managerArray);
+
+  		var manager_select = getElementById("candidate_manager");
+  		for (var manager in manageryArray) {
+  			if (managerArray.hasOwnProperty(company)) {
+
+  				var company_option = document.createElement("select");
+  				manager_option.value = managerArray[manager].userID;
+  				var manager_name = document.createTextNode(managerArray[manager].firstName + " " + managerArray[manager].lastName );
+
+  				manager_option.appendChild(manager_name);
+  				manager_select.appendChild(manager_option);
 
   			}
   		}
