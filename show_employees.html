@@ -140,11 +140,11 @@
 				employeeCard_body.appendChild(employeeCard_content);
 				employeeCard_title.appendChild(employeeFullName);
 				employeeCard_content.appendChild(emailAdress);
-				employeeCard_content.appendChild(document.createElement("br"));
+				employeeCard_content.appendChild(document.createElement("hr"));
 				employeeCard_content.appendChild(telephoneNumber);
-				employeeCard_content.appendChild(document.createElement("br"));
+				employeeCard_content.appendChild(document.createElement("hr"));
 				employeeCard_content.appendChild(dateOfBirth);
-				employeeCard_content.appendChild(document.createElement("br"));
+				employeeCard_content.appendChild(document.createElement("hr"));
 
 				var delete_btn = document.createElement("div");
                 delete_btn.id =  employeeArray[employee].userID;
@@ -167,18 +167,11 @@
 
 	function deleteEmployee(userid){
   var id=userid;
-var url = "http://localhost:8082/api/user/employee_wt";
+var url = "http://localhost:8082/api/user/employee_wt?=" + id;
  xhr.open("DELETE", url, true);
  xhr.setRequestHeader("Content-type","application/json");
-xhr.onload = function () {
-	
-	if (xhr.readyState == 4 && xhr.status == "200") {
-	
-	} else {
-		
-	}
-}
-xhr.send(id);
+
+xhr.send();
 }
 
 </script>

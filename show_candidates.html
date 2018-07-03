@@ -5,7 +5,7 @@
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -28,7 +28,7 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 
-				<li class="nav-item active"> 
+				<li class="nav-item active">
 					<a class="nav-link" href="#">Login/Logout <span class="sr-only">(current)</span></a>
 				</li>
 
@@ -81,15 +81,15 @@
 			<h3 class="searchresultstitle"> Candidates </h3>
 			<hr class = "searchresultsdivider">
 		</div>
-			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
-				
+			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
+
 
 			</div>
 		</div>
 
 		</div>
 
-		
+
 	<script>
 
 	var xhr = new XMLHttpRequest();
@@ -100,10 +100,11 @@
 		xhr.send();
 
 		var candidateArray = JSON.parse(xhr.response);
-		console.log(candidateArray);
+
 
 		for (var candidate in candidateArray) {
-			if (candidateArray.hasOwnProperty(candidat)) {
+			if (candidateArray.hasOwnProperty(candidate)) {
+				console.log(candidateArray[candidate].city);
 
 				var firstName = candidateArray[candidate].firstName;
 				var lastName = candidateArray[candidate].lastName;
@@ -114,19 +115,25 @@
 
 				var zipCode = document.createTextNode(candidateArray[candidate].zipCode);
 				var city = document.createTextNode(candidateArray[candidate].city);
-				var zipCodeCity = zipCode + " , " + city;
 
-				var emailAdress= document.createTextNode("emailadress: " + candidateArray[candidate].emailAdress );
+
+				var emailAdress= document.createTextNode("emailadress: " + candidateArray[candidate].emailAddress );
 				var telephoneNumber= document.createTextNode("phonenumber: " + candidateArray[candidate].telephoneNumber);
 				var dateOfBirth= document.createTextNode("date of birth: " + candidateArray[candidate].dateOfBirth);
 				var salary= document.createTextNode("Salary: " + candidateArray[candidate].salary );
 				var br = document.createElement("hr");
-				var companyName = candidateArray[candidate].company.companyName;
+				var company = document.createTextNode("Company: " + candidateArray[candidate].company.companyName);
+
+				var manager_firstName = candidateArray[candidate].managerExternal.firstName;
+				var manager_lastName = candidateArray[candidate].managerExternal.lastName;
+				var manager_fullName = manager_firstName + " " + manager_lastName;
+
+				var manager = document.createTextNode("manager: " + manager_fullName);
 				//
 				//create elements for full post, title, and content.
 				var candidateCard = document.createElement("div");
 				var idName = "candidatecard_" + candidateArray[candidate].userID ;
-				companyCard.id = idname;
+				candidateCard.id = idName;
 				candidateCard.className = 'card';
 
 				var candidateCard_body = document.createElement("div");
@@ -145,25 +152,38 @@
 				candidateCard_content.appendChild(document.createElement("hr"));
 				candidateCard_body.appendChild(candidateCard_content);
 				candidateCard_title.appendChild(candidateFullName);
-				
-				candidateCard_title.appendChild(adressLine1);
-				candidateCard_title.appendChild(adressLine2);
-				candidateCard_title.appendChild(zipCodeCity);
+
+				candidateCard_content.appendChild(company);
 				candidateCard_content.appendChild(document.createElement("br"));
+				candidateCard_content.appendChild(manager);
+				candidateCard_content.appendChild(document.createElement("hr"));
+
+				candidateCard_content.appendChild(adressLine1);
+				candidateCard_content.appendChild(document.createElement("br"));
+				candidateCard_content.appendChild(adressLine2);
+				candidateCard_content.appendChild(document.createElement("br"));
+				candidateCard_content.appendChild(zipCode);
+				candidateCard_content.appendChild(document.createElement("br"));
+				candidateCard_content.appendChild(city);
+
+				candidateCard_content.appendChild(document.createElement("hr"));
 				candidateCard_content.appendChild(dateOfBirth);
+				candidateCard_content.appendChild(document.createElement("br"));
 				candidateCard_content.appendChild(emailAdress);
+				candidateCard_content.appendChild(document.createElement("br"));
 				candidateCard_content.appendChild(telephoneNumber);
 				candidateCard_content.appendChild(document.createElement("br"));
-				candidateCard_content.appendChild(salary);				
+				candidateCard_content.appendChild(salary);
+				candidateCard_content.appendChild(document.createElement("hr"));
 
-				
+
 				var delete_btn = document.createElement("div");
                 delete_btn.id =  candidateArray[candidate].userID;
                 delete_btn.className = "btn btn-primary";
                 delete_btn.innerHTML="delete";
                 delete_btn.onclick =  function() { deleteCandidate(this.id) };
 
-                managerCard_content.appendChild(delete_btn);
+                candidateCard_content.appendChild(delete_btn);
 
 				document.getElementById("searchresultcolumn").appendChild(candidateCard);
 
@@ -175,21 +195,15 @@
 
 	function deleteCandidate(userid){
   var id=userid;
-var url = "http://localhost:8082/api/user/candidate";
+
+var url = "http://localhost:8082/api/user/candidate?=" + id;
+console.log(url);
  xhr.open("DELETE", url, true);
  xhr.setRequestHeader("Content-type","application/json");
-xhr.onload = function () {
-	
-	if (xhr.readyState == 4 && xhr.status == "200") {
-		
-	} else {
-		
-	}
-}
-xhr.send(id);
+
+xhr.send();
 }
 </script>
 
 </body>
 </html>
-

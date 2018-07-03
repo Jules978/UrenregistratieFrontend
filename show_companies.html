@@ -139,15 +139,18 @@
 				companyCard_body.appendChild(companyCard_content);
 				companyCard_title.appendChild(companyName);
 				companyCard_content.appendChild(adressLine1);
+				companyCard_content.appendChild(document.createElement("br"));
 				companyCard_content.appendChild(adressLine2);
+				companyCard_content.appendChild(document.createElement("br"));
 				companyCard_content.appendChild(zipCodeCity);
-				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(document.createElement("hr"));
 				companyCard_content.appendChild(emailAdress);
-				companyCard_content.appendChild(telephoneNumber);
 				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(telephoneNumber);
+				companyCard_content.appendChild(document.createElement("hr"));
 				companyCard_content.appendChild(rate);
 
-				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(document.createElement("hr"));
 
 				var delete_btn = document.createElement("div");
                 delete_btn.id =  companyArray[company].userID;
@@ -170,17 +173,11 @@
 
 		function deleteCompany(companyId){
   var id=companyId;
-var url = "http://localhost:8082/api/company";
+var url = "http://localhost:8082/api/company?=" + id;
+
  xhr.open("DELETE", url, true);
  xhr.setRequestHeader("Content-type","application/json");
-xhr.onload = function () {
-	
-	if (xhr.readyState == 4 && xhr.status == "200") {
-	
-	} else {
-		
-	}
-}
+
 xhr.send(id);
 }
 
