@@ -142,7 +142,7 @@
 					<div class="form-group">
 						<label for="candidate_manager">Select Manager</label>
 						<select class="form-control" id="candidate_manager">
-							
+
 						</select>
 					</div>
 
@@ -247,7 +247,7 @@
 
   	}
 
-  	 	function getmanagers(){
+  	 	function getManagers(){
 
   		var url = "http://localhost:8082/api/user/manager_external";
   		xhr.open('GET', url, false);
@@ -256,16 +256,19 @@
   		var managerArray = JSON.parse(xhr.response);
   		console.log(managerArray);
 
-  		var manager_select = getElementById("candidate_manager");
-  		for (var manager in manageryArray) {
-  			if (managerArray.hasOwnProperty(company)) {
+  		var manager_select = document.getElementById("candidate_manager");
+  		for (var manager in managerArray) {
+  			if (managerArray.hasOwnProperty(manager)) {
 
-  				var company_option = document.createElement("select");
-  				manager_option.value = managerArray[manager].userID;
-  				var manager_name = document.createTextNode(managerArray[manager].firstName + " " + managerArray[manager].lastName );
+					var manager_name = managerArray[manager].lastName + ", " + managerArray[manager].firstName ;
+					var manager_id = managerArray[manager].userID;
 
-  				manager_option.appendChild(manager_name);
-  				manager_select.appendChild(manager_option);
+					var manager_option = document.createElement("option");
+	            manager_option.value = manager_id;
+	        var manager_text = document.createTextNode(manager_name);
+	            manager_option.appendChild(manager_text);
+	        var manager_select = document.getElementById("candidate_manager");
+            manager_select.appendChild(manager_option);
 
   			}
   		}
