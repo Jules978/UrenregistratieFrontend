@@ -113,6 +113,11 @@
 						</select>
 					</div>
 
+					<div class="form-group">
+						<label for="manager_password">Set password</label>
+						<input type="email" class="form-control" id="manager_password">
+					</div>
+
 				</form>
 
 				<div class="btn btn-primary" id="submitbtn" onclick="add_manager(); return false;">Add Manager</div>
@@ -124,22 +129,76 @@
 <script>
 
 	function add_manager(){
-			var obj = {};
+		var obj = {};
+		var company = {};
 
 		obj.firstName = document.getElementById("manager_first_name").value;
 		obj.lastName = document.getElementById("manager_last_name").value;
 		obj.email = document.getElementById("manager_email").value;
 		obj.phone = document.getElementById("manager_phone").value;
-		obj.company = document.getElementById("manager_company").value;
+		obj.permissionLevel = "1";
+		obj.password = document.getElementById("manager_password").value;
+		
+		company.companyID = document.getElementById("manager_company").value;		
+		obj.company = company;
 
+		
+		var date = new Date();
+		var tempDay = date.getDate();
+		var tempMonth = date.getMonth() + 1;
+		var year = date.getFullYear();
+		var day = "";
+		var month = "";
 
+		if(tempDay<10){
+			day = "0"+tempDay;
+		}else {
+			day = tempDay;
+		}
+
+		if(tempMonth<10){
+			month = "0"+tempMonth;
+		}else {
+			month = tempMonth;
+		}
+
+		var currentDate = year + "-" + month + "-" + day;
+
+		obj.registerDate= currentDate;
 		var objJSON = JSON.stringify(obj);
+
 		console.log(objJSON);
 
   		//var xhr = new XMLHttpRequest();
   		//xhr.open("POST","submit.php", true);
   		//xhr.send(objJSON);  
 	}
+
+	function getCompanies(){
+
+  		var url = "http://localhost:8082/api/company";
+  		xhr.open('GET', url, false);
+  		xhr.send();
+
+  		var companyArray = JSON.parse(xhr.response);
+  		console.log(companyArray);
+
+  		var company_select = getElementById("manager_company");
+  		for (var company in companyArray) {
+  			if (companyArray.hasOwnProperty(company)) {
+
+  				var company_option = document.createElement("select");
+  				company_option.value = companyArray[company].companyID;
+  				var company_name = document.createTextNode(companyArray[company].companyName);
+
+  				company_option.appendChild(company_name);
+  				company_select.appendChild(company_option);
+
+  			}
+  		}
+
+
+  	}
 </script>
 
 </body>

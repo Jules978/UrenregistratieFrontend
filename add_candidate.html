@@ -93,6 +93,11 @@
 					</div>
 
 					<div class="form-group">
+						<label for="candidate_dateOfBirth">Geboortedatum</label>
+						<input type="date" class="form-control" id="candidate_dateOfBirth">
+					</div>
+
+					<div class="form-group">
 						<label for="candidate_email">Email address</label>
 						<input type="email" class="form-control" id="candidate_email">
 					</div>
@@ -103,23 +108,49 @@
 					</div>
 
 					<div class="form-group">
-						<label for="candidate_adress">Address</label>
-						<input type="text" class="form-control" id="candidate_adress">
+						<label for="candidate_adressLine1">Address Line 1</label>
+						<input type="text" class="form-control" id="candidate_adressLine1">
 					</div>
 
 					<div class="form-group">
-						<label for="candidate_company">Select Company</label>
-						<select class="form-control" id="candidate_company">
-							<option>auto-fill with</option>
-							<option>available companies</option>
-							<option>and managers?</option>
-						</select>
+						<label for="candidate_adressLine2">Address Line 2</label>
+						<input type="text" class="form-control" id="candidate_adressLine2">
+					</div>
+
+					<div class="form-group">
+						<label for="candidate_zipCode">ZipCode</label>
+						<input type="text" class="form-control" id="candidate_zipCode">
+					</div>
+
+					<div class="form-group">
+						<label for="candidate_city">City</label>
+						<input type="text" class="form-control" id="candidate_city">
 					</div>
 
 					<div class="form-group">
 						<label for="candidate_salary">Salary</label>
 						<input type="number" step="0.01" min="0" class="form-control" id="candidate_salary">
 					</div>
+
+					<div class="form-group">
+						<label for="candidate_company">Select Company</label>
+						<select class="form-control" id="candidate_company">
+							
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="candidate_manager">Select Manager</label>
+						<select class="form-control" id="candidate_manager">
+							<option value="1">auto-fill with</option>
+							<option>available companies</option>
+							<option>and managers?</option>
+						</select>
+					</div>
+
+
+
+					
 
 				</form>
 
@@ -128,30 +159,89 @@
 		</div>
 
 	</div>
-<script>
+	<script>
 
-	function add_candidate(){
+		function add_candidate(){
 
-		var obj = {};
+			var obj = {};
+			var company = {};
+			var manager = {};
 
-		obj.firstName = document.getElementById("employee_first_name").value;
-		obj.lastName = document.getElementById("employee_last_name").value;
-		obj.email = document.getElementById("employee_email").value;
-		obj.phone = document.getElementById("employee_phone").value;
-		obj.adress = document.getElementById("candidate_adress").value;
-		obj.company = document.getElementById("candidate_company").value;
-		obj.salary = document.getElementById("candidate_salary").value;
+			obj.firstName = document.getElementById("candidate_first_name").value;
+			obj.lastName = document.getElementById("candidate_last_name").value;
+			obj.dateOfBirth = document.getElementById("candidate_dateOfBirth").value;
+			obj.email = document.getElementById("candidate_email").value;
+			obj.phone = document.getElementById("candidate_phone").value;
+			obj.adressLine1 = document.getElementById("candidate_adressLine1").value;
+			obj.adressLine2 = document.getElementById("candidate_adressLine2").value;
+			obj.zipCode = document.getElementById("candidate_zipCode").value;
+			obj.city = document.getElementById("candidate_city").value;
+			obj.salary = document.getElementById("candidate_salary").value;
 
-		var objJSON = JSON.stringify(obj);
+			company.companyID = document.getElementById("candidate_company").value;		
+			obj.company = company;
 
-		console.log(objJSON);
+			manager.userID = document.getElementById("candidate_manager").value;		
+			obj.manager = manager;
+			
+			var date = new Date();
+			var tempDay = date.getDate();
+			var tempMonth = date.getMonth() + 1;
+			var year = date.getFullYear();
+			var day = "";
+			var month = "";
+
+			if(tempDay<10){
+				day = "0"+tempDay;
+			}else {
+				day = tempDay;
+			}
+
+			if(tempMonth<10){
+				month = "0"+tempMonth;
+			}else {
+				month = tempMonth;
+			}
+
+			var currentDate = year + "-" + month + "-" + day;
+
+			obj.registerDate= currentDate;
+			var objJSON = JSON.stringify(obj);
+
+			console.log(objJSON);
 
 
   		//var xhr = new XMLHttpRequest();
   		//xhr.open("POST","submit.php", true);
   		//xhr.send(objJSON);
-	}
-</script>
+  	}
+
+  	function getCompanies(){
+
+  		var url = "http://localhost:8082/api/company";
+  		xhr.open('GET', url, false);
+  		xhr.send();
+
+  		var companyArray = JSON.parse(xhr.response);
+  		console.log(companyArray);
+
+  		var company_select = getElementById("candidate_company");
+  		for (var company in companyArray) {
+  			if (companyArray.hasOwnProperty(company)) {
+
+  				var company_option = document.createElement("select");
+  				company_option.value = companyArray[company].companyID;
+  				var company_name = document.createTextNode(companyArray[company].companyName);
+
+  				company_option.appendChild(company_name);
+  				company_select.appendChild(company_option);
+
+  			}
+  		}
+
+
+  	}
+  </script>
 
 </body>
 </html>

@@ -15,7 +15,7 @@
 	<script src="script.js"></script>
 
 </head>
-<body>
+<body  onload="getCompanies();">
 
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg">
@@ -119,7 +119,80 @@
 
 	</div>
 
+<script>
 
+	var xhr = new XMLHttpRequest();
+
+	function getCompanies(){
+		var url = "http://localhost:8082/api/company";
+		xhr.open('GET', url, false);
+		xhr.send();
+
+		var companyArray = JSON.parse(xhr.response);
+		console.log(companyArray);
+
+		for (var company in companyArray) {
+			if (companyArray.hasOwnProperty(company)) {
+
+				var companyName = document.createTextNode(companyArray[company].companyName);
+				var adressLine1 = document.createTextNode(companyArray[company].addressLine1);
+				var adressLine2 = document.createTextNode(companyArray[company].addressLine2);
+
+				var zipCode = document.createTextNode(companyArray[company].zipCode);
+				var city = document.createTextNode(companyArray[company].city);
+				var zipCodeCity = zipCode + " , " + city;
+
+				var emailAdress= document.createTextNode("emailadress: " + companyArray[company].emailAdress );
+				var telephoneNumber= document.createTextNode("phonenumber: " + companyArray[company].telephoneNumber);
+				var rate= document.createTextNode("Rate: " + companyArray[company].salary);
+				var br = document.createElement("hr");
+				//
+				//create elements for full post, title, and content.
+				var companyCard = document.createElement("div");
+				var idName = "companycard_" + companyArray[company].companyID ;
+				companyCard.id = idname;
+				companyCard.className = 'card';
+
+				var companyCard_body = document.createElement("div");
+
+				companyCard_body.className = 'card-body';
+
+				var companyCard_title = document.createElement("h3");
+				companyCard_title.className = 'card-title';
+
+				var companyCard_content = document.createElement("div")
+				companyCard_content.className = 'card_text';
+
+				//adds text to corresponding elements
+				companyCard.appendChild(companyCard_body);
+				companyCard_body.appendChild(companyCard_title);
+				companyCard_content.appendChild(document.createElement("hr"));
+				companyCard_body.appendChild(companyCard_content);
+				companyCard_title.appendChild(companyName);
+				companyCard_content.appendChild(adressLine1);
+				companyCard_content.appendChild(adressLine2);
+				companyCard_content.appendChild(zipCodeCity);
+				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(emailAdress);
+				companyCard_content.appendChild(telephoneNumber);
+				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(rate);
+
+				companyCard_content.appendChild(document.createElement("br"));
+
+
+				document.getElementById("searchresultcolumn").appendChild(companyCard);
+
+
+
+			}
+		}
+
+
+
+	}
+
+</script>
 </body>
 </html>
 

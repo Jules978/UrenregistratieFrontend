@@ -15,7 +15,7 @@
 	<script src="script.js"></script>
 
 </head>
-<body>
+<body  onload="getCandidates();">
 
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg">
@@ -133,7 +133,81 @@
 		</div>
 
 		
+	<script>
 
+	var xhr = new XMLHttpRequest();
+
+	function getCandidates(){
+		var url = "http://localhost:8082/api/user/employee_wt";
+		xhr.open('GET', url, false);
+		xhr.send();
+
+		var candidateArray = JSON.parse(xhr.response);
+		console.log(candidateArray);
+
+		for (var candidate in candidateArray) {
+			if (candidateArray.hasOwnProperty(candidat)) {
+
+				var firstName = candidateArray[candidate].firstName;
+				var lastName = candidateArray[candidate].lastName;
+				var fullName = firstName + " " + lastName;
+				var candidateFullName = document.createTextNode(fullName);
+				var adressLine1 = document.createTextNode(candidateArray[candidate].addressLine1);
+				var adressLine2 = document.createTextNode(candidateArray[candidate].addressLine2);
+
+				var zipCode = document.createTextNode(candidateArray[candidate].zipCode);
+				var city = document.createTextNode(candidateArray[candidate].city);
+				var zipCodeCity = zipCode + " , " + city;
+
+				var emailAdress= document.createTextNode("emailadress: " + candidateArray[candidate].emailAdress );
+				var telephoneNumber= document.createTextNode("phonenumber: " + candidateArray[candidate].telephoneNumber);
+				var dateOfBirth= document.createTextNode("date of birth: " + candidateArray[candidate].dateOfBirth);
+				var salary= document.createTextNode("Salary: " + candidateArray[candidate].salary );
+				var br = document.createElement("hr");
+				var companyName = candidateArray[candidate].company.companyName;
+				//
+				//create elements for full post, title, and content.
+				var candidateCard = document.createElement("div");
+				var idName = "candidatecard_" + candidateArray[candidate].userID ;
+				companyCard.id = idname;
+				candidateCard.className = 'card';
+
+				var candidateCard_body = document.createElement("div");
+
+				candidateCard_body.className = 'card-body';
+
+				var candidateCard_title = document.createElement("h3");
+				candidateCard_title.className = 'card-title';
+
+				var candidateCard_content = document.createElement("div")
+				candidateCard_content.className = 'card_text';
+
+				//adds text to corresponding elements
+				candidateCard.appendChild(candidateCard_body);
+				candidateCard_body.appendChild(candidateCard_title);
+				candidateCard_content.appendChild(document.createElement("hr"));
+				candidateCard_body.appendChild(candidateCard_content);
+				candidateCard_title.appendChild(candidateFullName);
+				
+				candidateCard_title.appendChild(adressLine1);
+				candidateCard_title.appendChild(adressLine2);
+				candidateCard_title.appendChild(zipCodeCity);
+				candidateCard_content.appendChild(document.createElement("br"));
+				candidateCard_content.appendChild(dateOfBirth);
+				candidateCard_content.appendChild(emailAdress);
+				candidateCard_content.appendChild(telephoneNumber);
+				candidateCard_content.appendChild(document.createElement("br"));
+				candidateCard_content.appendChild(salary);				
+
+				document.getElementById("searchresultcolumn").appendChild(candidateCard);
+			}
+		}
+
+
+
+	}
+
+</script>
 
 </body>
 </html>

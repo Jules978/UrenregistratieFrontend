@@ -90,8 +90,23 @@
 					</div>
 
 					<div class="form-group">
-						<label for="company_adress">Adress</label>
-						<input type="text" class="form-control" id="company_adress">
+						<label for="company_adressLine1">Adress line 1</label>
+						<input type="text" class="form-control" id="company_adressLine1">
+					</div>
+
+					<div class="form-group">
+						<label for="company_adressLine2">Adress line 2</label>
+						<input type="text" class="form-control" id="company_adressLine2">
+					</div>
+
+					<div class="form-group">
+						<label for="company_zipCode">Zipcode</label>
+						<input type="text" class="form-control" id="company_zipCode">
+					</div>
+
+					<div class="form-group">
+						<label for="company_city">City</label>
+						<input type="text" class="form-control" id="company_city">
 					</div>
 
 					<div class="form-group">
@@ -124,11 +139,14 @@
 
 		var obj = {};
 
-		obj.name = document.getElementById("company_name").value;
-		obj.email = document.getElementById("company_email").value;
-		obj.phone = document.getElementById("company_phone").value;
-		obj.adress = document.getElementById("company_adress").value;
-		obj.rate = document.getElementById("company_rate").value;
+		obj.companyName = document.getElementById("company_name").value;
+		obj.emailAddress = document.getElementById("company_email").value;
+		obj.telephoneNumber = document.getElementById("company_phone").value;
+		obj.adressLine1 = document.getElementById("company_adressLine1").value;
+		obj.adressLine2 = document.getElementById("company_adressLine2").value;
+		obj.zipCode = document.getElementById("company_zipCode").value;
+		obj.city = document.getElementById("company_city").value;
+		obj.salary = document.getElementById("company_rate").value;
 
 		var objJSON = JSON.stringify(obj);
 
@@ -140,6 +158,7 @@
   		//xhr.send(objJSON);
 	}
 </script>
+
 
 </body>
 </html>

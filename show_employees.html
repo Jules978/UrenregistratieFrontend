@@ -144,6 +144,15 @@
 				employeeCard_content.appendChild(telephoneNumber);
 				employeeCard_content.appendChild(document.createElement("br"));
 				employeeCard_content.appendChild(dateOfBirth);
+				employeeCard_content.appendChild(document.createElement("br"));
+
+				var delete_btn = document.createElement("div");
+                delete_btn.id =  employeeArray[employee].userID;
+                delete_btn.className = "btn btn-primary";
+                delete_btn.innerHTML="delete";
+                commentsubmit.onclick =  function() { deleteEmployee(this.id) };
+
+                employeeCard_content.appendChild(delete_btn);
 
 				document.getElementById("searchresultcolumn").appendChild(employeeCard);
 
@@ -155,6 +164,21 @@
 
 
 	}
+
+	function deleteEmployee(userid){
+  var id=userid;
+var url = "http://localhost:8082/api/users/employee_wt";
+ xhr.open("DELETE", url, true);
+xhr.onload = function () {
+	var users = JSON.parse(xhr.responseText);
+	if (xhr.readyState == 4 && xhr.status == "200") {
+		console.table(users);
+	} else {
+		console.error(users);
+	}
+}
+xhr.send(id);
+} 
 
 </script>
 
