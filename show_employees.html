@@ -150,7 +150,7 @@
                 delete_btn.id =  employeeArray[employee].userID;
                 delete_btn.className = "btn btn-primary";
                 delete_btn.innerHTML="delete";
-                commentsubmit.onclick =  function() { deleteEmployee(this.id) };
+                delete_btn.onclick =  function() { deleteEmployee(this.id) };
 
                 employeeCard_content.appendChild(delete_btn);
 
@@ -178,7 +178,7 @@ xhr.onload = function () {
 	}
 }
 xhr.send(id);
-} 
+}
 
 </script>
 

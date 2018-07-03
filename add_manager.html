@@ -15,7 +15,7 @@
 	<script src="script.js"></script>
 
 </head>
-<body>
+<body onload="getCompanies();">
 
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg">
@@ -108,8 +108,7 @@
 					<div class="form-group">
 						<label for="manager_company">Select Company</label>
 						<select class="form-control" id="manager_company">
-							<option>auto-fill with</option>
-							<option>available companies</option>
+
 						</select>
 					</div>
 
@@ -128,6 +127,8 @@
 
 <script>
 
+		var xhr = new XMLHttpRequest();
+
 	function add_manager(){
 		var obj = {};
 		var company = {};
@@ -138,11 +139,11 @@
 		obj.phone = document.getElementById("manager_phone").value;
 		obj.permissionLevel = "1";
 		obj.password = document.getElementById("manager_password").value;
-		
-		company.companyID = document.getElementById("manager_company").value;		
+
+		company.companyID = document.getElementById("manager_company").value;
 		obj.company = company;
 
-		
+
 		var date = new Date();
 		var tempDay = date.getDate();
 		var tempMonth = date.getMonth() + 1;
@@ -171,34 +172,40 @@
 
   		var xhr = new XMLHttpRequest();
   		xhr.open("POST","http://localhost:8082/api/user/manager_external", true);
-  		xhr.send(objJSON);  
+			xhr.setRequestHeader("Content-type","application/json");
+  		xhr.send(objJSON);
 	}
 
 	function getCompanies(){
 
-  		var url = "http://localhost:8082/api/company";
-  		xhr.open('GET', url, false);
-  		xhr.send();
+		var url = "http://localhost:8082/api/company";
+		xhr.open('GET', url, false);
+		xhr.send();
 
-  		var companyArray = JSON.parse(xhr.response);
-  		console.log(companyArray);
-
-  		var company_select = getElementById("manager_company");
-  		for (var company in companyArray) {
-  			if (companyArray.hasOwnProperty(company)) {
-
-  				var company_option = document.createElement("select");
-  				company_option.value = companyArray[company].companyID;
-  				var company_name = document.createTextNode(companyArray[company].companyName);
-
-  				company_option.appendChild(company_name);
-  				company_select.appendChild(company_option);
-
-  			}
-  		}
+		var companyArray = JSON.parse(xhr.response);
 
 
-  	}
+		for (var company in companyArray) {
+			if (companyArray.hasOwnProperty(company)) {
+				console.log(companyArray[company].companyName);
+
+
+
+				var company_name = companyArray[company].companyName;
+				var company_id = companyArray[company].companyID;
+
+				var company_option = document.createElement("option");
+						company_option.value = company_id;
+				var company_text = document.createTextNode(company_name);
+						company_option.appendChild(company_text);
+				var company_select = document.getElementById("manager_company");
+					company_select.appendChild(company_option);
+
+			}
+		}
+
+
+	}
 </script>
 
 </body>
