@@ -128,7 +128,7 @@
 	<script>
 
 	function add_employee(){
-
+		//adds input from form to object
 		var obj = {};
 		obj.firstName = document.getElementById("employee_first_name").value;
 		obj.lastName = document.getElementById("employee_last_name").value;
@@ -138,6 +138,7 @@
 		obj.password = document.getElementById("employee_password").value;
 		obj.dateOfBirth = document.getElementById("employee_dateOfBirth").value;
 
+		//creates registration date, and converts it to the right format YYYY-MM-DD
 		var date = new Date();
 		var tempDay = date.getDate();
 		var tempMonth = date.getMonth() + 1;
@@ -163,17 +164,14 @@
 
 		var objJSON = JSON.stringify(obj);
 
-		console.log(objJSON);
-
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST","http://localhost:8082/api/user/employee_wt", true);
 		xhr.setRequestHeader("Content-type","application/json");
 		xhr.send(objJSON);
 
+		//hides the submit button, and shows the done message
 		document.getElementById("doneMessage").style.display = 'block';
 		document.getElementById("submitbtn").style.display = 'none';
-
-
 	}
 </script>
 

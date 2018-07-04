@@ -75,7 +75,7 @@
 
 	<!--MAIN CONTENT -->
 	<div class="container-fluid" id="maincontent">
-
+		<!--edit section -->
 		<div class="container-fluid" id="editcontent">
 
 			<div class="card">
@@ -153,72 +153,65 @@
 					<div class="btn btn-primary" id="edit_btn" onclick="updateCandidate(this.id); return false;">Update candidate</div>
 				</div>
 			</div>
-
 		</div>
+		<!--end edit section -->
 
-
+		<!--all candidates-->
 		<div class="container-fluid" id="searchresultscandidates">
 			<div class="container-fluid" >
 				<h3 class="searchresultstitle"> Candidates </h3>
 				<hr class = "searchresultsdivider">
 			</div>
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
-
-
+				<!--candidate cards are generated here-->
 			</div>
 		</div>
 
 	</div>
-
-
 	<script>
+	//global variable for httprequests
+	var xhr = new XMLHttpRequest();
 
-		var xhr = new XMLHttpRequest();
+	function getCandidates(){
+		var url = "http://localhost:8082/api/user/candidate";
+		xhr.open('GET', url, false);
+		xhr.send();
 
-		function getCandidates(){
-			var url = "http://localhost:8082/api/user/candidate";
-			xhr.open('GET', url, false);
-			xhr.send();
+		var candidateArray = JSON.parse(xhr.response);
 
-			var candidateArray = JSON.parse(xhr.response);
+		//for each candidate in the array, a new card is generated, information is added to the card, as well as a delete button
+		for (var candidate in candidateArray) {
+			if (candidateArray.hasOwnProperty(candidate)) {
 
+				//text variables and textnodes
+				var firstName = candidateArray[candidate].firstName;
+				var lastName = candidateArray[candidate].lastName;
+				var fullName = firstName + " " + lastName;
+				var candidateFullName = document.createTextNode(fullName);
+				var adressLine1 = document.createTextNode(candidateArray[candidate].addressLine1);
+				var adressLine2 = document.createTextNode(candidateArray[candidate].addressLine2);
+				var zipCode = document.createTextNode(candidateArray[candidate].zipCode);
+				var city = document.createTextNode(candidateArray[candidate].city);
+				var emailAddress= document.createTextNode("emailadress: " + candidateArray[candidate].emailAddress );
+				var telephoneNumber= document.createTextNode("phonenumber: " + candidateArray[candidate].telephoneNumber);
+				var dateOfBirth= document.createTextNode("date of birth: " + candidateArray[candidate].dateOfBirth);
+				var salary= document.createTextNode("Salary: " + candidateArray[candidate].salary );
+				var br = document.createElement("hr");
+				var company = document.createTextNode("Company: " + candidateArray[candidate].company.companyName);
 
-			for (var candidate in candidateArray) {
-				if (candidateArray.hasOwnProperty(candidate)) {
-					console.log(candidateArray[candidate].city);
+				var manager_firstName = candidateArray[candidate].managerExternal.firstName;
+				var manager_lastName = candidateArray[candidate].managerExternal.lastName;
+				var manager_fullName = manager_firstName + " " + manager_lastName;
 
-					var firstName = candidateArray[candidate].firstName;
-					var lastName = candidateArray[candidate].lastName;
-					var fullName = firstName + " " + lastName;
-					var candidateFullName = document.createTextNode(fullName);
-					var adressLine1 = document.createTextNode(candidateArray[candidate].addressLine1);
-					var adressLine2 = document.createTextNode(candidateArray[candidate].addressLine2);
+				var manager = document.createTextNode("manager: " + manager_fullName);
 
-					var zipCode = document.createTextNode(candidateArray[candidate].zipCode);
-					var city = document.createTextNode(candidateArray[candidate].city);
-
-
-					var emailAddress= document.createTextNode("emailadress: " + candidateArray[candidate].emailAddress );
-					var telephoneNumber= document.createTextNode("phonenumber: " + candidateArray[candidate].telephoneNumber);
-					var dateOfBirth= document.createTextNode("date of birth: " + candidateArray[candidate].dateOfBirth);
-					var salary= document.createTextNode("Salary: " + candidateArray[candidate].salary );
-					var br = document.createElement("hr");
-					var company = document.createTextNode("Company: " + candidateArray[candidate].company.companyName);
-
-					var manager_firstName = candidateArray[candidate].managerExternal.firstName;
-					var manager_lastName = candidateArray[candidate].managerExternal.lastName;
-					var manager_fullName = manager_firstName + " " + manager_lastName;
-
-					var manager = document.createTextNode("manager: " + manager_fullName);
-				//
-				//create elements for full post, title, and content.
+				//create elements for full card, title, and content.
 				var candidateCard = document.createElement("div");
 				var idName = "candidatecard_" + candidateArray[candidate].userID ;
 				candidateCard.id = idName;
 				candidateCard.className = 'card';
 
 				var candidateCard_body = document.createElement("div");
-
 				candidateCard_body.className = 'card-body';
 
 				var candidateCard_title = document.createElement("h3");
@@ -257,6 +250,7 @@
 				candidateCard_content.appendChild(salary);
 				candidateCard_content.appendChild(document.createElement("hr"));
 
+				//adds a delete button, the userID is set as an element id, so it can be passed on to the delete function
 				var delete_btn = document.createElement("div");
 				delete_btn.id =  candidateArray[candidate].userID;
 				delete_btn.className = "btn btn-danger";
@@ -265,7 +259,7 @@
 
 				candidateCard_content.appendChild(delete_btn);
 
-
+				//adds an edit button, the userID is set as an element id, so it can be passed on to the edit function
 				var edit_btn = document.createElement("div");
 				edit_btn.id =  candidateArray[candidate].userID;
 				edit_btn.className = "btn btn-primary";
@@ -273,26 +267,25 @@
 				edit_btn.onclick =  function() { showEdtiForm(this.id) };
 
 				candidateCard_content.appendChild(edit_btn);
-
+				//adds new card with info to the main div
 				document.getElementById("searchresultcolumn").appendChild(candidateCard);
 			}
 		}
 
 	}
 
+	//deletes user based on id
 	function deleteCandidate(userid){
+
 		var id=userid;
 
 		var url = "http://localhost:8082/api/user/candidate?id=" + id;
-		console.log(url);
 		xhr.open("DELETE", url, true);
 		xhr.setRequestHeader("Content-type","application/json");
-
 		xhr.send();
-
 		document.getElementById(id).style="display:none"
 	}
-
+	//not working yet
 	function showEditForm(userid){
 		//show div
 		var id = userid;
@@ -300,22 +293,27 @@
 		getCompanies();
 		getManagers();
 		editCandidate(id);
-
-
 	}
 
+	//not working yet
 	function editCandidate(userID){
 		var id = userID;
+
+		//get user info for edit form
 		var url = "http://localhost:8082/api/user/candidate/" + id;
 		xhr.open('GET', url, false);
 		xhr.send();
 
 		var candidate = JSON.parse(xhr.response);
+
+		//set user info as form values (so the user can see what they are editing)
 		document.getElementById("candidate_first_name").value=candidate.firstName;
 		document.getElementById("candidate_last_name").vaue = candidate.lastName;
 		document.getElementsById('candidate_email').value = candidate.emailAddress;
 
 	}
+
+	//sends the updated info to backend
 	function updateCandidate(userID){
 
 		var obj = {};
@@ -345,9 +343,6 @@
 		obj.registerDate= currentDate;
 		var objJSON = JSON.stringify(obj);
 
-		console.log(objJSON);
-
-
 		xhr.open("POST","http://localhost:8082/api/user/candidate", true);
 		xhr.setRequestHeader("Content-type","application/json");
 		xhr.send(objJSON);
@@ -355,6 +350,7 @@
 		document.getElementById("edit_btn").id = "edit_btn";
 	}
 
+	//get companies for edit form
 	function getCompanies(){
 
 		var url = "http://localhost:8082/api/company";
@@ -363,62 +359,55 @@
 
 		var companyArray = JSON.parse(xhr.response);
 
+		for (var company in companyArray) {
+			if (companyArray.hasOwnProperty(company)) {
 
-  		//var company_select = document.getElementById("candidate_company");
-  		for (var company in companyArray) {
-  			if (companyArray.hasOwnProperty(company)) {
-  				console.log(companyArray[company].companyName);
+				var company_name = companyArray[company].companyName;
+				var company_id = companyArray[company].companyID;
 
+				var company_option = document.createElement("option");
+				company_option.value = company_id;
+				var company_text = document.createTextNode(company_name);
+				company_option.appendChild(company_text);
+				var company_select = document.getElementById("candidate_company");
+				company_select.appendChild(company_option);
 
+			}
+		}
+	}
+	//get managers for edit form
+	function getManagers(){
 
-  				var company_name = companyArray[company].companyName;
-  				var company_id = companyArray[company].companyID;
+		var url = "http://localhost:8082/api/user/manager_external";
+		xhr.open('GET', url, false);
+		xhr.send();
 
-  				var company_option = document.createElement("option");
-  				company_option.value = company_id;
-  				var company_text = document.createTextNode(company_name);
-  				company_option.appendChild(company_text);
-  				var company_select = document.getElementById("candidate_company");
-  				company_select.appendChild(company_option);
+		var managerArray = JSON.parse(xhr.response);
 
-  			}
-  		}
+		var manager_select = document.getElementById("candidate_manager");
+		for (var manager in managerArray) {
+			if (managerArray.hasOwnProperty(manager)) {
 
+				var manager_name = managerArray[manager].lastName + ", " + managerArray[manager].firstName ;
+				var manager_id = managerArray[manager].userID;
 
-  	}
+				var manager_option = document.createElement("option");
+				manager_option.value = manager_id;
+				var manager_text = document.createTextNode(manager_name);
+				manager_option.appendChild(manager_text);
+				var manager_select = document.getElementById("candidate_manager");
+				manager_select.appendChild(manager_option);
 
-  	function getManagers(){
+			}
+		}
+	}
 
-  		var url = "http://localhost:8082/api/user/manager_external";
-  		xhr.open('GET', url, false);
-  		xhr.send();
-
-  		var managerArray = JSON.parse(xhr.response);
-  		console.log(managerArray);
-
-  		var manager_select = document.getElementById("candidate_manager");
-  		for (var manager in managerArray) {
-  			if (managerArray.hasOwnProperty(manager)) {
-
-  				var manager_name = managerArray[manager].lastName + ", " + managerArray[manager].firstName ;
-  				var manager_id = managerArray[manager].userID;
-
-  				var manager_option = document.createElement("option");
-  				manager_option.value = manager_id;
-  				var manager_text = document.createTextNode(manager_name);
-  				manager_option.appendChild(manager_text);
-  				var manager_select = document.getElementById("candidate_manager");
-  				manager_select.appendChild(manager_option);
-
-  			}
-  		}
-  	}
-
-  	function exitForm(){
-
-  		document.getElementById("edit_btn").id = "edit_btn";
-  	}
-  </script>
+	//closes edit form, not working yet
+	function exitForm(){
+		document.getElementById("edit_btn").id = "edit_btn";
+	}
+	
+	</script>
 
 </body>
 </html>

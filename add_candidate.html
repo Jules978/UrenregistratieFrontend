@@ -158,124 +158,120 @@
 
 	</div>
 	<script>
+	//global variable for new httprequest
+	var xhr = new XMLHttpRequest();
 
-		var xhr = new XMLHttpRequest();
-		function addCandidate(){
+	//creates new candidate
+	function addCandidate(){
+		//adds input from html form to object
+		var obj = {};
+		var company = {};
+		var managerExternal = {};
 
-			var obj = {};
-			var company = {};
-			var managerExternal = {};
+		obj.firstName = document.getElementById("candidate_first_name").value;
+		obj.lastName = document.getElementById("candidate_last_name").value;
+		obj.dateOfBirth = document.getElementById("candidate_dateOfBirth").value;
+		obj.emailAddress = document.getElementById("candidate_email").value;
+		obj.telephoneNumber = document.getElementById("candidate_phone").value;
+		obj.addressLine1 = document.getElementById("candidate_addressLine1").value;
+		obj.addressLine2 = document.getElementById("candidate_addressLine2").value;
+		obj.zipCode = document.getElementById("candidate_zipCode").value;
+		obj.city = document.getElementById("candidate_city").value;
+		obj.salary = document.getElementById("candidate_salary").value;
 
-			obj.firstName = document.getElementById("candidate_first_name").value;
-			obj.lastName = document.getElementById("candidate_last_name").value;
-			obj.dateOfBirth = document.getElementById("candidate_dateOfBirth").value;
-			obj.emailAddress = document.getElementById("candidate_email").value;
-			obj.telephoneNumber = document.getElementById("candidate_phone").value;
-			obj.addressLine1 = document.getElementById("candidate_addressLine1").value;
-			obj.addressLine2 = document.getElementById("candidate_addressLine2").value;
-			obj.zipCode = document.getElementById("candidate_zipCode").value;
-			obj.city = document.getElementById("candidate_city").value;
-			obj.salary = document.getElementById("candidate_salary").value;
+		company.companyID = document.getElementById("candidate_company").value;
+		obj.company = company;
 
-			company.companyID = document.getElementById("candidate_company").value;
-			obj.company = company;
+		managerExternal.userID = document.getElementById("candidate_manager").value;
+		obj.managerExternal = managerExternal;
 
-			managerExternal.userID = document.getElementById("candidate_manager").value;
-			obj.managerExternal = managerExternal;
+		//creates new date for registration date, and converts it to the right format: YYYY-MM-DD
+		var date = new Date();
+		var tempDay = date.getDate();
+		var tempMonth = date.getMonth() + 1;
+		var year = date.getFullYear();
+		var day = "";
+		var month = "";
 
-			var date = new Date();
-			var tempDay = date.getDate();
-			var tempMonth = date.getMonth() + 1;
-			var year = date.getFullYear();
-			var day = "";
-			var month = "";
+		if(tempDay<10){
+			day = "0"+tempDay;
+		}else {
+			day = tempDay;
+		}
 
-			if(tempDay<10){
-				day = "0"+tempDay;
-			}else {
-				day = tempDay;
+		if(tempMonth<10){
+			month = "0"+tempMonth;
+		}else {
+			month = tempMonth;
+		}
+
+		var currentDate = year + "-" + month + "-" + day;
+
+		obj.registerDate= currentDate;
+
+		//object -> JSON
+		var objJSON = JSON.stringify(obj);
+
+		//sends JSON to backend via POST request
+		xhr.open("POST","http://localhost:8082/api/user/candidate", true);
+		xhr.setRequestHeader("Content-type","application/json");
+		xhr.send(objJSON);
+	}
+
+	//get companies for form
+	function getCompanies(){
+
+		var url = "http://localhost:8082/api/company";
+		xhr.open('GET', url, false);
+		xhr.send();
+		var companyArray = JSON.parse(xhr.response);
+
+		//for each company in the array, a new option element is added to the form, the value is the companyID
+		for (var company in companyArray) {
+			//if the array has objects
+			if (companyArray.hasOwnProperty(company)) {
+				
+				var company_name = companyArray[company].companyName;
+				var company_id = companyArray[company].companyID;
+
+				var company_option = document.createElement("option");
+				company_option.value = company_id;
+				var company_text = document.createTextNode(company_name);
+				company_option.appendChild(company_text);
+				var company_select = document.getElementById("candidate_company");
+				company_select.appendChild(company_option);
+
 			}
+		}
+	}
 
-			if(tempMonth<10){
-				month = "0"+tempMonth;
-			}else {
-				month = tempMonth;
+	//get managers for form
+	function getManagers(){
+
+		var url = "http://localhost:8082/api/user/manager_external";
+		xhr.open('GET', url, false);
+		xhr.send();
+		var managerArray = JSON.parse(xhr.response);
+
+		//for each manager in the array, a new option element is added to the form, the value is the userID
+		for (var manager in managerArray) {
+			//if the array has objects
+			if (managerArray.hasOwnProperty(manager)) {
+
+				var manager_name = managerArray[manager].lastName + ", " + managerArray[manager].firstName ;
+				var manager_id = managerArray[manager].userID;
+
+				var manager_option = document.createElement("option");
+				manager_option.value = manager_id;
+				var manager_text = document.createTextNode(manager_name);
+				manager_option.appendChild(manager_text);
+				var manager_select = document.getElementById("candidate_manager");
+				manager_select.appendChild(manager_option);
+
 			}
-
-			var currentDate = year + "-" + month + "-" + day;
-
-			obj.registerDate= currentDate;
-			var objJSON = JSON.stringify(obj);
-
-			console.log(objJSON);
-
-
-  		xhr.open("POST","http://localhost:8082/api/user/candidate", true);
-			xhr.setRequestHeader("Content-type","application/json");
-  		xhr.send(objJSON);
-  	}
-
-  	function getCompanies(){
-
-  		var url = "http://localhost:8082/api/company";
-  		xhr.open('GET', url, false);
-  		xhr.send();
-
-  		var companyArray = JSON.parse(xhr.response);
-
-
-  		//var company_select = document.getElementById("candidate_company");
-  		for (var company in companyArray) {
-  			if (companyArray.hasOwnProperty(company)) {
-					console.log(companyArray[company].companyName);
-
-
-
-					var company_name = companyArray[company].companyName;
-	        var company_id = companyArray[company].companyID;
-
-	        var company_option = document.createElement("option");
-	            company_option.value = company_id;
-	        var company_text = document.createTextNode(company_name);
-	            company_option.appendChild(company_text);
-	        var company_select = document.getElementById("candidate_company");
-            company_select.appendChild(company_option);
-
-  			}
-  		}
-
-
-  	}
-
-  	 	function getManagers(){
-
-  		var url = "http://localhost:8082/api/user/manager_external";
-  		xhr.open('GET', url, false);
-  		xhr.send();
-
-  		var managerArray = JSON.parse(xhr.response);
-  		console.log(managerArray);
-
-  		var manager_select = document.getElementById("candidate_manager");
-  		for (var manager in managerArray) {
-  			if (managerArray.hasOwnProperty(manager)) {
-
-					var manager_name = managerArray[manager].lastName + ", " + managerArray[manager].firstName ;
-					var manager_id = managerArray[manager].userID;
-
-					var manager_option = document.createElement("option");
-	            manager_option.value = manager_id;
-	        var manager_text = document.createTextNode(manager_name);
-	            manager_option.appendChild(manager_text);
-	        var manager_select = document.getElementById("candidate_manager");
-            manager_select.appendChild(manager_option);
-
-  			}
-  		}
-
-
-  	}
-  </script>
+		}
+	}
+	</script>
 
 </body>
 </html>

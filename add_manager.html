@@ -125,11 +125,13 @@
 
 	</div>
 
-<script>
-
-		var xhr = new XMLHttpRequest();
+	<script>
+	//global variable for new httprequest
+	var xhr = new XMLHttpRequest();
 
 	function add_manager(){
+
+		//adds info from form to object
 		var obj = {};
 		var company = {};
 
@@ -143,7 +145,7 @@
 		company.companyID = document.getElementById("manager_company").value;
 		obj.company = company;
 
-
+		//creates registration date and converts it to the right format YYYY-MM-DD
 		var date = new Date();
 		var tempDay = date.getDate();
 		var tempMonth = date.getMonth() + 1;
@@ -164,18 +166,17 @@
 		}
 
 		var currentDate = year + "-" + month + "-" + day;
-
 		obj.registerDate= currentDate;
+		
 		var objJSON = JSON.stringify(obj);
 
-		console.log(objJSON);
-
-  		var xhr = new XMLHttpRequest();
-  		xhr.open("POST","http://localhost:8082/api/user/manager_external", true);
-			xhr.setRequestHeader("Content-type","application/json");
-  		xhr.send(objJSON);
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST","http://localhost:8082/api/user/manager_external", true);
+		xhr.setRequestHeader("Content-type","application/json");
+		xhr.send(objJSON);
 	}
 
+	//get companies for form
 	function getCompanies(){
 
 		var url = "http://localhost:8082/api/company";
@@ -184,27 +185,22 @@
 
 		var companyArray = JSON.parse(xhr.response);
 
-
+		//for each company in the array, create a new option element, value is the companyID
 		for (var company in companyArray) {
 			if (companyArray.hasOwnProperty(company)) {
-				console.log(companyArray[company].companyName);
-
-
 
 				var company_name = companyArray[company].companyName;
 				var company_id = companyArray[company].companyID;
 
 				var company_option = document.createElement("option");
-						company_option.value = company_id;
+				company_option.value = company_id;
 				var company_text = document.createTextNode(company_name);
-						company_option.appendChild(company_text);
+				company_option.appendChild(company_text);
 				var company_select = document.getElementById("manager_company");
-					company_select.appendChild(company_option);
+				company_select.appendChild(company_option);
 
 			}
 		}
-
-
 	}
 </script>
 

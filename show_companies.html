@@ -75,21 +75,22 @@
 
 	<!--MAIN CONTENT -->
 	<div class="container-fluid" id="maincontent">
-
+		<!--edit form goes here -->
 		<div class="container-fluid" id="searchresultscompanies">
 
 			<div class="container-fluid" >
-			<h3 class="searchresultstitle"> Companies </h3>
-			<hr class = "searchresultsdivider">
-		</div>
+				<h3 class="searchresultstitle"> Companies </h3>
+				<hr class = "searchresultsdivider">
+			</div>
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
+				<!--company cards generated here-->
 			</div>
 		</div>
 
 	</div>
 
-<script>
-
+	<script>
+	//global variables
 	var xhr = new XMLHttpRequest();
 
 	function getCompanies(){
@@ -98,11 +99,11 @@
 		xhr.send();
 
 		var companyArray = JSON.parse(xhr.response);
-		console.log(companyArray);
 
+		//generates a card with info for each company in the array
 		for (var company in companyArray) {
 			if (companyArray.hasOwnProperty(company)) {
-
+				//textnodes
 				var companyName = document.createTextNode(companyArray[company].companyName);
 				var addressLine1 = document.createTextNode(companyArray[company].addressLine1);
 				var addressLine2 = document.createTextNode(companyArray[company].addressLine2);
@@ -114,15 +115,14 @@
 				var telephoneNumber= document.createTextNode("phonenumber: " + companyArray[company].telephoneNumber);
 				var rate= document.createTextNode("Rate: " + companyArray[company].salary);
 				var br = document.createElement("hr");
-				//
-				//create elements for full post, title, and content.
+
+				//create elements for full card, title, and content.
 				var companyCard = document.createElement("div");
 				var idName = "companycard_" + companyArray[company].companyID ;
 				companyCard.id = idName;
 				companyCard.className = 'card';
 
 				var companyCard_body = document.createElement("div");
-
 				companyCard_body.className = 'card-body';
 
 				var companyCard_title = document.createElement("h3");
@@ -153,36 +153,32 @@
 
 				companyCard_content.appendChild(document.createElement("hr"));
 
+				//adds a delete button. companyID is set as the elementid, so it can be passed on to the delete function
 				var delete_btn = document.createElement("div");
-                delete_btn.id =  companyArray[company].companyID;
-                delete_btn.className = "btn btn-primary";
-                delete_btn.innerHTML="delete";
-                delete_btn.onclick =  function() { deleteCompany(this.id) };
+				delete_btn.id =  companyArray[company].companyID;
+				delete_btn.className = "btn btn-primary";
+				delete_btn.innerHTML="delete";
+				delete_btn.onclick =  function() { deleteCompany(this.id) };
 
-                companyCard_content.appendChild(delete_btn);
+				companyCard_content.appendChild(delete_btn);
 
 				document.getElementById("searchresultcolumn").appendChild(companyCard);
 
-
-
 			}
 		}
-
-
-
 	}
+	//deletes company based on id
+	function deleteCompany(companyId){
+		
+		var id=companyId;
+		var url = "http://localhost:8082/api/company?id=" + id;
 
-		function deleteCompany(companyId){
-  var id=companyId;
-var url = "http://localhost:8082/api/company?id=" + id;
+		xhr.open("DELETE", url, true);
+		xhr.setRequestHeader("Content-type","application/json");
 
-
- xhr.open("DELETE", url, true);
- xhr.setRequestHeader("Content-type","application/json");
-
-xhr.send();
-document.getElementById(id).style="display:none"
-}
+		xhr.send();
+		document.getElementById(id).style="display:none"
+	}
 
 </script>
 </body>
