@@ -104,8 +104,8 @@
 			if (companyArray.hasOwnProperty(company)) {
 
 				var companyName = document.createTextNode(companyArray[company].companyName);
-				var adressLine1 = document.createTextNode(companyArray[company].addressLine1);
-				var adressLine2 = document.createTextNode(companyArray[company].addressLine2);
+				var addressLine1 = document.createTextNode(companyArray[company].addressLine1);
+				var addressLine2 = document.createTextNode(companyArray[company].addressLine2);
 
 				var zipCode = document.createTextNode(companyArray[company].zipCode);
 				var city = document.createTextNode(companyArray[company].city);
@@ -137,9 +137,9 @@
 				companyCard_content.appendChild(document.createElement("hr"));
 				companyCard_body.appendChild(companyCard_content);
 				companyCard_title.appendChild(companyName);
-				companyCard_content.appendChild(adressLine1);
+				companyCard_content.appendChild(addressLine1);
 				companyCard_content.appendChild(document.createElement("br"));
-				companyCard_content.appendChild(adressLine2);
+				companyCard_content.appendChild(addressLine2);
 				companyCard_content.appendChild(document.createElement("br"));
 				companyCard_content.appendChild(zipCode);
 				companyCard_content.appendChild(document.createElement("br"));
@@ -181,6 +181,7 @@ var url = "http://localhost:8082/api/company?id=" + id;
  xhr.setRequestHeader("Content-type","application/json");
 
 xhr.send();
+document.getElementById(id).style="display:none"
 }
 
 </script>
