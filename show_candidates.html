@@ -283,7 +283,7 @@
 	function deleteCandidate(userid){
 		var id=userid;
 
-		var url = "http://localhost:8082/api/user/candidate?=" + id;
+		var url = "http://localhost:8082/api/user/candidate?id=" + id;
 		console.log(url);
 		xhr.open("DELETE", url, true);
 		xhr.setRequestHeader("Content-type","application/json");
@@ -297,15 +297,20 @@
 		document.getElementById("edit_btn").id = id;
 		getCompanies();
 		getManagers();
-		editCandidate();
+		editCandidate(id);
 
 
 	}
 
 	function editCandidate(userID){
+		var id = userID;
+		var url = "http://localhost:8082/api/user/candidate/" + id;
+		xhr.open('GET', url, false);
+		xhr.send();
 
-		//get request
-		//fill fields with info
+		var candidate = JSON.parse(xhr.response);
+		document.getElementById(candidate).value=candidate.firstName
+
 	}
 	function updateCandidate(userID){
 
