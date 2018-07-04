@@ -165,7 +165,7 @@
 
 	function deleteManager(userid){
   var id=userid;
-var url = "http://localhost:8082/api/user/manager_external?=" + id;
+var url = "http://localhost:8082/api/user/manager_external?id=" + id;
  xhr.open("DELETE", url, true);
  xhr.setRequestHeader("Content-type","application/json");
 

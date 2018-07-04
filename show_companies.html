@@ -154,7 +154,7 @@
 				companyCard_content.appendChild(document.createElement("hr"));
 
 				var delete_btn = document.createElement("div");
-                delete_btn.id =  companyArray[company].userID;
+                delete_btn.id =  companyArray[company].companyID;
                 delete_btn.className = "btn btn-primary";
                 delete_btn.innerHTML="delete";
                 delete_btn.onclick =  function() { deleteCompany(this.id) };
@@ -174,12 +174,13 @@
 
 		function deleteCompany(companyId){
   var id=companyId;
-var url = "http://localhost:8082/api/company?=" + id;
+var url = "http://localhost:8082/api/company?id=" + id;
+
 
  xhr.open("DELETE", url, true);
  xhr.setRequestHeader("Content-type","application/json");
 
-xhr.send(id);
+xhr.send();
 }
 
 </script>
