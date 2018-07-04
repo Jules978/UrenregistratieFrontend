@@ -113,7 +113,7 @@
 				var lastName = employeeArray[employee].lastName;
 				var fullName = firstName + " " + lastName;
 				var employeeFullName = document.createTextNode(fullName);
-				var emailAdress= document.createTextNode("emailadress: " + employeeArray[employee].emailAdress );
+				var emailAddress= document.createTextNode("emailadress: " + employeeArray[employee].emailAddress );
 				var telephoneNumber= document.createTextNode("phonenumber: " + employeeArray[employee].telephoneNumber);
 				var dateOfBirth= document.createTextNode("date of birth: " + employeeArray[employee].dateOfBirth);
 				var br = document.createElement("hr");
@@ -139,11 +139,20 @@
 				employeeCard_content.appendChild(document.createElement("hr"));
 				employeeCard_body.appendChild(employeeCard_content);
 				employeeCard_title.appendChild(employeeFullName);
-				employeeCard_content.appendChild(emailAdress);
-				employeeCard_content.appendChild(document.createElement("br"));
+				employeeCard_content.appendChild(emailAddress);
+				employeeCard_content.appendChild(document.createElement("hr"));
 				employeeCard_content.appendChild(telephoneNumber);
-				employeeCard_content.appendChild(document.createElement("br"));
+				employeeCard_content.appendChild(document.createElement("hr"));
 				employeeCard_content.appendChild(dateOfBirth);
+				employeeCard_content.appendChild(document.createElement("hr"));
+
+				var delete_btn = document.createElement("div");
+                delete_btn.id =  employeeArray[employee].userID;
+                delete_btn.className = "btn btn-primary";
+                delete_btn.innerHTML="delete";
+                delete_btn.onclick =  function() { deleteEmployee(this.id) };
+
+                employeeCard_content.appendChild(delete_btn);
 
 				document.getElementById("searchresultcolumn").appendChild(employeeCard);
 
@@ -155,6 +164,15 @@
 
 
 	}
+
+	function deleteEmployee(userid){
+  var id=userid;
+var url = "http://localhost:8082/api/user/employee_wt?=" + id;
+ xhr.open("DELETE", url, true);
+ xhr.setRequestHeader("Content-type","application/json");
+
+xhr.send();
+}
 
 </script>
 

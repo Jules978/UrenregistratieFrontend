@@ -5,7 +5,7 @@
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
 	<script src="script.js"></script>
 
 </head>
-<body>
+<body  onload="getCompanies();">
 
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg">
@@ -28,7 +28,7 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 
-				<li class="nav-item active"> 
+				<li class="nav-item active">
 					<a class="nav-link" href="#">Login/Logout <span class="sr-only">(current)</span></a>
 				</li>
 
@@ -82,44 +82,106 @@
 			<h3 class="searchresultstitle"> Companies </h3>
 			<hr class = "searchresultsdivider">
 		</div>
-			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn"> 
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Company</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card" id="searchresultcard">
-					<div class="card-body">
-						<h3 class="card-title">NAME</h3>
-						<h5 class="card-title">Company</h5>
-						<hr>
-						<p class="card-text">contact info</p>
-						<hr>
-
-						<div class="container-fluid" id="editbtncontainer">
-							<a href="#" class="btn btn-primary" id="editdatabtn">edit</a> 
-							<a href="#" class="btn btn-primary" id="removedatabtn">delete</a>
-						</div>
-					</div>
-				</div>
-
+			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
 			</div>
 		</div>
 
 	</div>
 
+<script>
 
+	var xhr = new XMLHttpRequest();
+
+	function getCompanies(){
+		var url = "http://localhost:8082/api/company";
+		xhr.open('GET', url, false);
+		xhr.send();
+
+		var companyArray = JSON.parse(xhr.response);
+		console.log(companyArray);
+
+		for (var company in companyArray) {
+			if (companyArray.hasOwnProperty(company)) {
+
+				var companyName = document.createTextNode(companyArray[company].companyName);
+				var adressLine1 = document.createTextNode(companyArray[company].addressLine1);
+				var adressLine2 = document.createTextNode(companyArray[company].addressLine2);
+
+				var zipCode = document.createTextNode(companyArray[company].zipCode);
+				var city = document.createTextNode(companyArray[company].city);
+
+				var emailAddress= document.createTextNode("emailadress: " + companyArray[company].emailAddress );
+				var telephoneNumber= document.createTextNode("phonenumber: " + companyArray[company].telephoneNumber);
+				var rate= document.createTextNode("Rate: " + companyArray[company].salary);
+				var br = document.createElement("hr");
+				//
+				//create elements for full post, title, and content.
+				var companyCard = document.createElement("div");
+				var idName = "companycard_" + companyArray[company].companyID ;
+				companyCard.id = idName;
+				companyCard.className = 'card';
+
+				var companyCard_body = document.createElement("div");
+
+				companyCard_body.className = 'card-body';
+
+				var companyCard_title = document.createElement("h3");
+				companyCard_title.className = 'card-title';
+
+				var companyCard_content = document.createElement("div")
+				companyCard_content.className = 'card_text';
+
+				//adds text to corresponding elements
+				companyCard.appendChild(companyCard_body);
+				companyCard_body.appendChild(companyCard_title);
+				companyCard_content.appendChild(document.createElement("hr"));
+				companyCard_body.appendChild(companyCard_content);
+				companyCard_title.appendChild(companyName);
+				companyCard_content.appendChild(adressLine1);
+				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(adressLine2);
+				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(zipCode);
+				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(city);
+				companyCard_content.appendChild(document.createElement("hr"));
+				companyCard_content.appendChild(emailAddress);
+				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(telephoneNumber);
+				companyCard_content.appendChild(document.createElement("hr"));
+				companyCard_content.appendChild(rate);
+
+				companyCard_content.appendChild(document.createElement("hr"));
+
+				var delete_btn = document.createElement("div");
+                delete_btn.id =  companyArray[company].userID;
+                delete_btn.className = "btn btn-primary";
+                delete_btn.innerHTML="delete";
+                delete_btn.onclick =  function() { deleteCompany(this.id) };
+
+                companyCard_content.appendChild(delete_btn);
+
+				document.getElementById("searchresultcolumn").appendChild(companyCard);
+
+
+
+			}
+		}
+
+
+
+	}
+
+		function deleteCompany(companyId){
+  var id=companyId;
+var url = "http://localhost:8082/api/company?=" + id;
+
+ xhr.open("DELETE", url, true);
+ xhr.setRequestHeader("Content-type","application/json");
+
+xhr.send(id);
+}
+
+</script>
 </body>
 </html>
-
