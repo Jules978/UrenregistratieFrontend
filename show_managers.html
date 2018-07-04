@@ -75,23 +75,21 @@
 
 	<!--MAIN CONTENT -->
 	<div class="container-fluid" id="maincontent">
-
-
-
 		<div class="container-fluid" id="searchresultsmanagers">
 
 			<div class="container-fluid" >
-			<h3 class="searchresultstitle"> managers </h3>
-			<hr class = "searchresultsdivider">
-		</div>
+				<h3 class="searchresultstitle"> managers </h3>
+				<hr class = "searchresultsdivider">
+			</div>
 
 			<div class="card-columns d-flex flex-wrap justify-content-center" id="searchresultcolumn">
+				<!--MAanager cards are generated here-->
 			</div>
 		</div>
 
 	</div>
 
-<script>
+	<script>
 
 	var xhr = new XMLHttpRequest();
 
@@ -101,8 +99,8 @@
 		xhr.send();
 
 		var managerArray = JSON.parse(xhr.response);
-		console.log(managerArray);
 
+		//generate a new card for each manager in the array
 		for (var manager in managerArray) {
 			if (managerArray.hasOwnProperty(manager)) {
 
@@ -115,7 +113,7 @@
 				var company = document.createTextNode("Company: " + managerArray[manager].company.companyName);
 				var br = document.createElement("hr");
 				//
-				//create elements for full post, title, and content.
+				//create elements for full card, title, and content.
 				var managerCard = document.createElement("div");
 				managerCard.id = "searchresultcard";
 				managerCard.className = 'card';
@@ -143,35 +141,29 @@
 				managerCard_content.appendChild(telephoneNumber);
 				managerCard_content.appendChild(document.createElement("hr"));
 
-
+				//adds delete button
 				var delete_btn = document.createElement("div");
-                delete_btn.id =  managerArray[manager].userID;
-                delete_btn.className = "btn btn-primary";
-                delete_btn.innerHTML="delete";
-                delete_btn.onclick =  function() { deleteManager(this.id) };
+				delete_btn.id =  managerArray[manager].userID;
+				delete_btn.className = "btn btn-primary";
+				delete_btn.innerHTML="delete";
+				delete_btn.onclick =  function() { deleteManager(this.id) };
 
-                managerCard_content.appendChild(delete_btn);
+				managerCard_content.appendChild(delete_btn);
 
 				document.getElementById("searchresultcolumn").appendChild(managerCard);
-
-
-
 			}
 		}
-
-
-
 	}
-
+	//deletes manages based on id
 	function deleteManager(userid){
-  var id=userid;
-var url = "http://localhost:8082/api/user/manager_external?id=" + id;
- xhr.open("DELETE", url, true);
- xhr.setRequestHeader("Content-type","application/json");
+		var id=userid;
+		var url = "http://localhost:8082/api/user/manager_external?id=" + id;
+		xhr.open("DELETE", url, true);
+		xhr.setRequestHeader("Content-type","application/json");
+		xhr.send();
 
-xhr.send();
-document.getElementById(id).style="display:none"
-}
+		document.getElementById(id).style="display:none"
+	}
 
 </script>
 </body>

@@ -83,7 +83,6 @@
 				<hr>
 
 				<form>
-
 					<div class="form-group">
 						<label for="company_name">Name</label>
 						<input type="text" class="form-control" id="company_name">
@@ -123,22 +122,19 @@
 						<label for="company_rate">Hourly Rate</label>
 						<input type="number" step="0.01" min="0" class="form-control" id="company_rate">
 					</div>
-
-
-
 				</form>
 
 				<div class="btn btn-primary" id="submitbtn" onclick="add_company(); return false;">Add Company</div>
+				
 			</div>
 		</div>
 	</div>
 
-<script>
+	<script>
 
 	function add_company(){
-
+		//adds info from html form to object
 		var obj = {};
-
 		obj.companyName = document.getElementById("company_name").value;
 		obj.addressLine1 = document.getElementById("company_addressLine1").value;
 		obj.addressLine2 = document.getElementById("company_addressLine2").value;
@@ -148,18 +144,17 @@
 		obj.telephoneNumber = document.getElementById("company_phone").value;
 		obj.salary = document.getElementById("company_rate").value;
 
+		//convert object to JSON
 		var objJSON = JSON.stringify(obj);
 
-		console.log(objJSON);
+		//send JSON to java backend via POST request
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST","http://localhost:8082/api/company", true);
+		xhr.setRequestHeader("Content-type","application/json");
+		xhr.send(objJSON);
 
-
-  		var xhr = new XMLHttpRequest();
-  		xhr.open("POST","http://localhost:8082/api/company", true);
-  		xhr.setRequestHeader("Content-type","application/json");
-  		xhr.send(objJSON);
 	}
+
 </script>
-
-
 </body>
 </html>
