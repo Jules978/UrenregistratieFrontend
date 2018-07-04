@@ -269,7 +269,7 @@
 				var edit_btn = document.createElement("div");
 				edit_btn.id =  candidateArray[candidate].userID;
 				edit_btn.className = "btn btn-primary";
-				edit_btn.innerHTML="delete";
+				edit_btn.innerHTML="edit";
 				edit_btn.onclick =  function() { showEdtiForm(this.id) };
 
 				candidateCard_content.appendChild(edit_btn);
@@ -289,6 +289,8 @@
 		xhr.setRequestHeader("Content-type","application/json");
 
 		xhr.send();
+
+		document.getElementById(id).style="display:none"
 	}
 
 	function showEditForm(userid){
