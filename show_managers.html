@@ -110,7 +110,7 @@
 				var lastName = managerArray[manager].lastName;
 				var fullName = firstName + " " + lastName;
 				var managerFullName = document.createTextNode(fullName);
-				var emailAdress= document.createTextNode("emailadress: " + managerArray[manager].emailAdress );
+				var emailAddress= document.createTextNode("emailadress: " + managerArray[manager].emailAddress );
 				var telephoneNumber= document.createTextNode("phonenumber: " + managerArray[manager].telephoneNumber);
 				var company = document.createTextNode("Company: " + managerArray[manager].company.companyName);
 				var br = document.createElement("hr");
@@ -138,7 +138,7 @@
 				managerCard_title.appendChild(managerFullName);
 				managerCard_content.appendChild(company);
 				managerCard_content.appendChild(document.createElement("hr"));
-				managerCard_content.appendChild(emailAdress);
+				managerCard_content.appendChild(emailAddress);
 				managerCard_content.appendChild(document.createElement("br"));
 				managerCard_content.appendChild(telephoneNumber);
 				managerCard_content.appendChild(document.createElement("hr"));

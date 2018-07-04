@@ -109,9 +109,8 @@
 
 				var zipCode = document.createTextNode(companyArray[company].zipCode);
 				var city = document.createTextNode(companyArray[company].city);
-				var zipCodeCity = document.createTextNode(zipCode + " , " + city);
 
-				var emailAdress= document.createTextNode("emailadress: " + companyArray[company].emailAdress );
+				var emailAddress= document.createTextNode("emailadress: " + companyArray[company].emailAddress );
 				var telephoneNumber= document.createTextNode("phonenumber: " + companyArray[company].telephoneNumber);
 				var rate= document.createTextNode("Rate: " + companyArray[company].salary);
 				var br = document.createElement("hr");
@@ -142,9 +141,11 @@
 				companyCard_content.appendChild(document.createElement("br"));
 				companyCard_content.appendChild(adressLine2);
 				companyCard_content.appendChild(document.createElement("br"));
-				companyCard_content.appendChild(zipCodeCity);
+				companyCard_content.appendChild(zipCode);
+				companyCard_content.appendChild(document.createElement("br"));
+				companyCard_content.appendChild(city);
 				companyCard_content.appendChild(document.createElement("hr"));
-				companyCard_content.appendChild(emailAdress);
+				companyCard_content.appendChild(emailAddress);
 				companyCard_content.appendChild(document.createElement("br"));
 				companyCard_content.appendChild(telephoneNumber);
 				companyCard_content.appendChild(document.createElement("hr"));
