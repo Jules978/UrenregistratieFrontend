@@ -257,22 +257,22 @@
 				candidateCard_content.appendChild(salary);
 				candidateCard_content.appendChild(document.createElement("hr"));
 
+				var delete_btn = document.createElement("div");
+				delete_btn.id =  candidateArray[candidate].userID;
+				delete_btn.className = "btn btn-danger";
+				delete_btn.innerHTML="delete";
+				delete_btn.onclick =  function() { deleteCandidate(this.id) };
+
+				candidateCard_content.appendChild(delete_btn);
+
+
 				var edit_btn = document.createElement("div");
 				edit_btn.id =  candidateArray[candidate].userID;
 				edit_btn.className = "btn btn-primary";
 				edit_btn.innerHTML="delete";
-				edit_btn.onclick =  function() { deleteCandidate(this.id) };
+				edit_btn.onclick =  function() { showEdtiForm(this.id) };
 
-				candidateCard_content.appendChild(delete_btn);
-
-
-				var delete_btn = document.createElement("div");
-				delete_btn.id =  candidateArray[candidate].userID;
-				delete_btn.className = "btn btn-primary";
-				delete_btn.innerHTML="delete";
-				delete_btn.onclick =  function() { showEdtiForm(this.id) };
-
-				candidateCard_content.appendChild(delete_btn);
+				candidateCard_content.appendChild(edit_btn);
 
 				document.getElementById("searchresultcolumn").appendChild(candidateCard);
 			}
@@ -309,7 +309,9 @@
 		xhr.send();
 
 		var candidate = JSON.parse(xhr.response);
-		document.getElementById(candidate).value=candidate.firstName
+		document.getElementById("candidate_first_name").value=candidate.firstName;
+		document.getElementById("candidate_last_name").vaue = candidate.lastName;
+		document.getElementsById('candidate_email').value = candidate.emailAddress;
 
 	}
 	function updateCandidate(userID){
